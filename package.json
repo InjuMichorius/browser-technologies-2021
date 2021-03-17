@@ -1,0 +1,32 @@
+{
+  "name": "enquete",
+  "version": "1.0.0",
+  "description": "Application that walks you through an enquete, focused on accesibility and progressive enhancement",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InjuMichorius/browser-technologies-2021.git"
+  },
+  "keywords": [
+    "progressiveEnhancement",
+    "accesibility"
+  ],
+  "author": "Inju Michorius",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/InjuMichorius/browser-technologies-2021/issues"
+  },
+  "homepage": "https://github.com/InjuMichorius/browser-technologies-2021#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}
