@@ -1,44 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('./components/head') %>
-    <title>Enquete</title>
+        <title>Enquete</title>
 </head>
+
 <body>
     <form action="">
         <fieldset>
-            <label for="">Name</label>
-            <input type="text">
-            <label for="">Number</label>
-            <input type="text">
+            <legend>What is your name?</legend>
+            <label for="student-name">Name</label>
+            <input type="text" id="student-name" required>
         </fieldset>
         <fieldset>
-            <input type="checkbox" name="teacher">
-            <label for="">Koop</label>
-            <input type="checkbox" name="teacher">
-            <label for="">Koch</label>
-            <input type="checkbox" name="teacher">
-            <label for="">Duncan</label>
-            <input type="checkbox" name="teacher">
-            <label for="">Robin</label>
+            <legend>What is your student number?</legend>
+            <label for="student-number">Number</label>
+            <input type="text" id="student-number" required>
         </fieldset>
         <fieldset>
-            <label for="">Weeks you took this course</label>
-            <input type="date">
-            <input type="date">
-
-            
+            <legend>Which teacher(s) gave <b>Web App from Scratch</b>?</legend>
+            <input type="checkbox" name="teacher" id="koop">
+            <label for="koop">Koop</label>
+            <input type="checkbox" name="teacher" id="koch">
+            <label for="koch">Koch</label>
+            <input type="checkbox" name="teacher" id="duncan">
+            <label for="duncan">Duncan</label>
+            <input type="checkbox" name="teacher" id="robin">
+            <label for="robin">Robin</label>
         </fieldset>
-        
-
-weken waarin je het vak deed
-beoordeling op schaal 1-10 van
-lesstof (hoe moeilijk is het)
-uitleg (hoe duidelijk is het uitgelegd)
-eigen inzicht (hoe goed snap je het)
-Validatie: alles moet zijn ingevuld voordat je verder mag met het formulier. Geef duidelijke foutmeldingen.
-
-Als ik de enquete niet afkrijg, wil ik later weer verder gaan met waar ik ben gebleven.
+        <fieldset>
+            <legend>In what period did you follow this course?</legend>
+            <label for="start-date">Start date</label>
+            <input type="date" id="start-date" required>
+            <label for="end-date">End date</label>
+            <input type="date" id="end-date" required>
+        </fieldset>
+        <fieldset>
+            <legend>Give this course a score between 1 and 10</legend>
+            <label for="lesson-marterial">Lesson material (how hard was it?)</label>
+            <input type="number" id="lesson-marterial" min="1" max="10" required>
+            <label for="explanation">Explanation (how clearly is it explained?)</label>
+            <input type="number" id="explanation" min="1" max="10" required>
+            <label for="own-isight">Own insight (How well do you get it?)</label>
+            <input type="number" id="own-isight" min="1" max="10" required>
+        </fieldset>
+        <fieldset>
+            <legend>Which teacher(s) gave <b>CSS to the Rescue</b>?</legend>
+            <input type="checkbox" name="teacher" id="koop">
+            <label for="koop">Koop</label>
+            <input type="checkbox" name="teacher" id="koch">
+            <label for="koch">Koch</label>
+            <input type="checkbox" name="teacher" id="duncan">
+            <label for="duncan">Duncan</label>
+            <input type="checkbox" name="teacher" id="robin">
+            <label for="robin">Robin</label>
+        </fieldset>
+        <fieldset>
+            <legend>In what period did you follow this course?</legend>
+            <label for="start-date">Start date</label>
+            <input type="date" id="start-date" required>
+            <label for="end-date">End date</label>
+            <input type="date" id="end-date" required>
+        </fieldset>
+        <fieldset>
+            <legend>Give this course a score between 1 and 10</legend>
+            <label for="lesson-marterial">Lesson material (how hard was it?)</label>
+            <input type="number" id="lesson-marterial" min="1" max="10" required>
+            <label for="explanation">Explanation (how clearly is it explained?)</label>
+            <input type="number" id="explanation" min="1" max="10" required>
+            <label for="own-isight">Own insight (How well do you get it?)</label>
+            <input type="number" id="own-isight" min="1" max="10" required>
+        </fieldset>
     </form>
+
+
+    <h1>Notes</h1>
+    <p>Validatie: alles moet zijn ingevuld voordat je verder mag met het formulier. Geef duidelijke foutmeldingen. Als
+        ik de enquete niet afkrijg, wil ik later weer verder gaan met waar ik ben gebleven.</p>
 </body>
+
 </html>
