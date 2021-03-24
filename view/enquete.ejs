@@ -7,16 +7,16 @@
 </head>
 
 <body>
-    <form method="POST" action="/get-data">
+    <form action="/send-enquete" method="POST">
         <fieldset>
             <legend>What is your name?</legend>
-            <label for="student-name">Name</label>
-            <input type="text" id="student-name" name="studentName" required>
+            <label for="studentName">Name</label>
+            <input type="text" id="studentName" name="studentName" title="studentName" required>
         </fieldset>
         <fieldset>
             <legend>What is your student number?</legend>
-            <label for="student-number">Number</label>
-            <input type="text" id="student-number" name="studentNumber" required>
+            <label for="studentNumber">Number</label>
+            <input type="text" id="studentNumber" name="studentNumber" title="studentName" required>
         </fieldset>
         <!-- <fieldset>
             <legend>Which teacher(s) gave <b>Web App from Scratch</b>?</legend>
