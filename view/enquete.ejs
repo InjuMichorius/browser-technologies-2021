@@ -3,22 +3,22 @@
 
 <head>
     <%- include('./components/head') %>
-        <title>Enquete</title>
+        <title>HvA | Course enquete</title>
 </head>
 
 <body>
-    <form action="">
+    <form method="POST" action="/get-data">
         <fieldset>
             <legend>What is your name?</legend>
             <label for="student-name">Name</label>
-            <input type="text" id="student-name" required>
+            <input type="text" id="student-name" name="studentName" required>
         </fieldset>
         <fieldset>
             <legend>What is your student number?</legend>
             <label for="student-number">Number</label>
-            <input type="text" id="student-number" required>
+            <input type="text" id="student-number" name="studentNumber" required>
         </fieldset>
-        <fieldset>
+        <!-- <fieldset>
             <legend>Which teacher(s) gave <b>Web App from Scratch</b>?</legend>
             <input type="checkbox" name="teacher" id="koop">
             <label for="koop">Koop</label>
@@ -71,7 +71,9 @@
             <input type="number" id="explanation" min="1" max="10" required>
             <label for="own-isight">Own insight (How well do you get it?)</label>
             <input type="number" id="own-isight" min="1" max="10" required>
-        </fieldset>
+        </fieldset> -->
+        <label for="submit">Submit</label>
+        <input type="submit" id="submit">
     </form>
 
 

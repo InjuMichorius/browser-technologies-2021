@@ -1,13 +1,35 @@
-const enquete = require('./public/source/routes/enquete.js')
 const express = require('express')
+const bodyParser = require('body-parser')
+const assert = require('assert')
 const app = express()
+const router = express.Router()
 const port = 3000
+const mongo = require('./public/source/mongo')
+const enquete = require('./public/source/routes/enquete.js')
+const resultSchema = require('./public/schemas/result-schema')
 
+//Config our .env file
 require('dotenv').config()
 
-// const url = "mongodb+srv://" + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + "KEY"
-console.log(process.env.TEST)
+//Connecting to database
+const connectToMongoDB = async () => {
+  await mongo().then(async (mongoose) => {
+    try {
+      console.log('Connected to mongoDB')
 
+      const result = {
+        email: 'inju@inju.nl',
+        username: 'Inju',
+        password: 'magjenieweten1!'
+      }
+
+      await new resultSchema(result).save()
+    } finally {
+      mongoose.connection.close()
+    }
+  })
+}
+connectToMongoDB()
 
 //Identifying default path
 app.use(express.static(__dirname + '/public/'));
@@ -18,7 +40,6 @@ app.set('view engine', 'ejs')
 
 //Routes
 app.get('/', enquete)
-
 
 //Server check
 app.listen(port, () => {
