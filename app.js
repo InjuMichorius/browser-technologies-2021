@@ -3,10 +3,14 @@ const bodyParser = require('body-parser')
 const app = express()
 const router = express.Router()
 const port = 3000
-const enquete = require('./public/source/routes/enquete.js')
-const succes = require('./public/source/routes/succes.js')
+const account = require('./public/source/routes/account.js')
+const q1WAFS = require('./public/source/routes/q1WAFS.js')
+const q2WAFS = require('./public/source/routes/q2WAFS.js')
+const q3WAFS = require('./public/source/routes/q3WAFS.js')
 const mongo = require('mongodb')
+const mongoose = require('mongoose')
 const { MongoClient } = require('mongodb')
+
 
 //Config our .env file
 require('dotenv').config()
@@ -33,36 +37,40 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 
+
+
 //Insert data to the database
-// app.post('/send-enquete', register)
+app.post('/send-account', user)
 
-// function register(req, res, next) {
-//   db.collection('enquete').insertOne({
-//     studentName: req.body.studentName,
-//     studentNumber: req.body.studentNumber
-//   }, done)
-//   function done(err) {
-//     if (err) {
-//       next(err)
-//     } else {
-//       res.redirect('/succes')
-//     }
-//   }
-// }
-
-function userInput(req, res, next) {
-  req.body.studentName
-  console.log(studentName.value())
+function user(req, res, next) {
+  db.collection('users').insertOne({
+    studentName: req.body.studentName,
+    studentNumber: req.body.studentNumber
+  }, done)
+  function done(err) {
+    if (err) {
+      next(err)
+    } else {
+      res.redirect('/q1WAFS')
+    }
+  }
 }
-userInput()
+// console.log(db.collection('users').find({studentName: "Inju Michorius"}))
+//Insert data to the database
+app.post('/send-q1WAFS', teacher)
 
-// app.post('/send-enquete', user)
-
-// function user(req, res, next) {
-//     db.collection('enquete').findOne(studentName)
-//     console.log(studentName)
-
-// }
+function teacher(req, res, next) {
+  db.collection('users').find({
+    studentNumber: '500804843'
+  }, done)
+  function done(err) {
+    if (err) {
+      next(err)
+    } else {
+      res.redirect('/q2WAFS')
+    }
+  }
+}
 
 
 //Identifying default path
@@ -73,5 +81,7 @@ app.set('views', 'view')
 app.set('view engine', 'ejs')
 
 //Routes
-app.get('/', enquete)
-app.get('/succes', succes)
+app.get('/', account)
+app.get('/q1WAFS', q1WAFS)
+app.get('/q2WAFS', q2WAFS)
+app.get('/q3WAFS', q3WAFS)

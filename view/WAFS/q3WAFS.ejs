@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../components/head') %>
+    <title>HvA | WAFS score</title>
+</head>
+<body>
+    <form action="/q2wafs" method="POST">
+        <fieldset>
+            <legend>Give this course a score between 1 and 10</legend>
+            <label for="lesson-marterial">Lesson material (how hard was it?)</label>
+            <input type="number" id="lesson-marterial" min="1" max="10" required>
+            <label for="explanation">Explanation (how clearly is it explained?)</label>
+            <input type="number" id="explanation" min="1" max="10" required>
+            <label for="own-isight">Own insight (How well do you get it?)</label>
+            <input type="number" id="own-isight" min="1" max="10" required>
+        </fieldset>
+    </form>
+</body>
+</html>

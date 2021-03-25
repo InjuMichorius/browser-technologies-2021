@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../components/head') %>
+    <title>HvA | WAFS teachers</title>
+</head>
+<body>
+    <form action="/send-q1WAFS" method="POST">
+        <fieldset>
+            <legend>Which teacher(s) gave <b>Web App from Scratch</b>?</legend>
+            <input type="checkbox" name="teacher" id="koop">
+            <label for="koop">Koop</label>
+            <input type="checkbox" name="teacher" id="koch">
+            <label for="koch">Koch</label>
+            <input type="checkbox" name="teacher" id="duncan">
+            <label for="duncan">Duncan</label>
+            <input type="checkbox" name="teacher" id="robin">
+            <label for="robin">Robin</label>
+
+            <input type="submit">
+        </fieldset>
+    </form>
+</body>
+</html>

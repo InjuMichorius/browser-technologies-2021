@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../components/head') %>
+    <title>HvA | WAFS period</title>
+</head>
+<body>
+    <form action="/q2wafs" method="POST">
+        <fieldset>
+            <legend>In what period did you follow this course?</legend>
+            <label for="start-date">Start date</label>
+            <input type="date" id="start-date" required>
+            <label for="end-date">End date</label>
+            <input type="date" id="end-date" required>
+        </fieldset>
+    </form>
+</body>
+</html>
