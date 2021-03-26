@@ -2,9 +2,6 @@ const { v4: uuidv4 } = require('uuid');
 const express = require('express')
 const bodyParser = require('body-parser')
 const account = require('./public/source/routes/account.js')
-const q1WAFS = require('./public/source/routes/q1WAFS.js')
-const q2WAFS = require('./public/source/routes/q2WAFS.js')
-const q3WAFS = require('./public/source/routes/q3WAFS.js')
 const mongoose = require('mongoose')
 
 //Config our .env file
@@ -70,7 +67,7 @@ app.get('/send-account/:uuid', (req, res) => {
     const data = new StudentPersistence(student)
     data.save();
 
-    res.render('./WAFS/q1WAFS', {
+    res.render('./WAFS', {
       uuid: req.params.uuid
     })
   } catch (err) {
@@ -78,7 +75,7 @@ app.get('/send-account/:uuid', (req, res) => {
   }
 });
 
-app.get('/send-q1WAFS/:uuid', (req, res) => {
+app.get('/send-WAFS/:uuid', (req, res) => {
   try {
     const wafsRating = {
       uuid: req.params.uuid,
@@ -92,7 +89,7 @@ app.get('/send-q1WAFS/:uuid', (req, res) => {
     const data = new WAFSPersistence(wafsRating)
     data.save();
 
-    res.render('./CTTR/q1CTTR', {
+    res.render('./CTTR', {
       uuid: req.params.uuid
     })
   } catch (error) {
@@ -100,14 +97,27 @@ app.get('/send-q1WAFS/:uuid', (req, res) => {
   }
 })
 
-// app.get('/send-qCTTR/:uuid', (req, res) => {
-//   try {
+app.get('/send-WAFS/:uuid', (req, res) => {
+  try {
+    const wafsRating = {
+      uuid: req.params.uuid,
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
+      lessonMarterial: req.query.lessonMarterial,
+      explanation: req.query.explanation,
+      ownInsight: req.query.ownInsight,
+    };
 
-//   } catch (error) {
-//     console.log(error);
-//   }
-// })
+    const data = new WAFSPersistence(wafsRating)
+    data.save();
 
+    res.render('./CTTR', {
+      uuid: req.params.uuid
+    })
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 
 app.listen(port, () => {
