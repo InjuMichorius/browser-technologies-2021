@@ -26,14 +26,64 @@ const WAFSDataSchema = new Schema({
   uuid: { type: String, required: true },
   startDate: { type: String, required: true },
   endDate: { type: String, required: true },
-  lessonMarterial: { type: String, required: true},
+  lessonMaterial: { type: String, required: true},
   explanation: { type: String, required: true},
   ownInsight: { type: String, required: true}
 }, { collection: 'WAFS'});
 
+const CSSTTRDataSchema = new Schema({
+  uuid: { type: String, required: true },
+  startDate: { type: String, required: true },
+  endDate: { type: String, required: true },
+  lessonMaterial: { type: String, required: true},
+  explanation: { type: String, required: true},
+  ownInsight: { type: String, required: true}
+}, { collection: 'CSSTTR'});
+
+const PWADataSchema = new Schema({
+  uuid: { type: String, required: true },
+  startDate: { type: String, required: true },
+  endDate: { type: String, required: true },
+  lessonMaterial: { type: String, required: true},
+  explanation: { type: String, required: true},
+  ownInsight: { type: String, required: true}
+}, { collection: 'PWA'});
+
+const BTDataSchema = new Schema({
+  uuid: { type: String, required: true },
+  startDate: { type: String, required: true },
+  endDate: { type: String, required: true },
+  lessonMaterial: { type: String, required: true},
+  explanation: { type: String, required: true},
+  ownInsight: { type: String, required: true}
+}, { collection: 'BT'});
+
+const RTWDataSchema = new Schema({
+  uuid: { type: String, required: true },
+  startDate: { type: String, required: true },
+  endDate: { type: String, required: true },
+  lessonMaterial: { type: String, required: true},
+  explanation: { type: String, required: true},
+  ownInsight: { type: String, required: true}
+}, { collection: 'RTW'});
+
+const HCDDataSchema = new Schema({
+  uuid: { type: String, required: true },
+  startDate: { type: String, required: true },
+  endDate: { type: String, required: true },
+  lessonMaterial: { type: String, required: true},
+  explanation: { type: String, required: true},
+  ownInsight: { type: String, required: true}
+}, { collection: 'HCD'});
+
 const StudentPersistence = mongoose.model('Student', StudentDataSchema);
 const WAFSPersistence = mongoose.model('WAFS', WAFSDataSchema);
-//
+const CSSTTRPersistence = mongoose.model('CSSTTR', CSSTTRDataSchema);
+const PWAPersistence = mongoose.model('PWA', PWADataSchema);
+const BTPersistence = mongoose.model('BT', BTDataSchema);
+const RTWPersistence = mongoose.model('RTW', RTWDataSchema);
+const HCDPersistence = mongoose.model('HCD', HCDDataSchema);
+
 
 const app = express()
 const router = express.Router()
@@ -81,7 +131,7 @@ app.get('/send-WAFS/:uuid', (req, res) => {
       uuid: req.params.uuid,
       startDate: req.query.startDate,
       endDate: req.query.endDate,
-      lessonMarterial: req.query.lessonMarterial,
+      lessonMaterial: req.query.lessonMaterial,
       explanation: req.query.explanation,
       ownInsight: req.query.ownInsight,
     };
@@ -97,21 +147,109 @@ app.get('/send-WAFS/:uuid', (req, res) => {
   }
 })
 
-app.get('/send-WAFS/:uuid', (req, res) => {
+app.get('/send-CSSTTR/:uuid', (req, res) => {
   try {
-    const wafsRating = {
+    const cssttrRating = {
       uuid: req.params.uuid,
       startDate: req.query.startDate,
       endDate: req.query.endDate,
-      lessonMarterial: req.query.lessonMarterial,
+      lessonMaterial: req.query.lessonMaterial,
       explanation: req.query.explanation,
       ownInsight: req.query.ownInsight,
     };
 
-    const data = new WAFSPersistence(wafsRating)
+    const data = new CSSTTRPersistence(cssttrRating)
     data.save();
 
-    res.render('./CTTR', {
+    res.render('./PWA', {
+      uuid: req.params.uuid
+    })
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+app.get('/send-PWA/:uuid', (req, res) => {
+  try {
+    const pwaRating = {
+      uuid: req.params.uuid,
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
+      lessonMaterial: req.query.lessonMaterial,
+      explanation: req.query.explanation,
+      ownInsight: req.query.ownInsight,
+    };
+
+    const data = new PWAPersistence(pwaRating)
+    data.save();
+
+    res.render('./BT', {
+      uuid: req.params.uuid
+    })
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+app.get('/send-BT/:uuid', (req, res) => {
+  try {
+    const btRating = {
+      uuid: req.params.uuid,
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
+      lessonMaterial: req.query.lessonMaterial,
+      explanation: req.query.explanation,
+      ownInsight: req.query.ownInsight,
+    };
+
+    const data = new BTPersistence(btRating)
+    data.save();
+
+    res.render('./RTW', {
+      uuid: req.params.uuid
+    })
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+app.get('/send-RTW/:uuid', (req, res) => {
+  try {
+    const rtwRating = {
+      uuid: req.params.uuid,
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
+      lessonMaterial: req.query.lessonMaterial,
+      explanation: req.query.explanation,
+      ownInsight: req.query.ownInsight,
+    };
+
+    const data = new RTWPersistence(rtwRating)
+    data.save();
+
+    res.render('./HCD', {
+      uuid: req.params.uuid
+    })
+  } catch (error) {
+    console.log(error);
+  }
+})
+
+app.get('/send-HCD/:uuid', (req, res) => {
+  try {
+    const hcdRating = {
+      uuid: req.params.uuid,
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
+      lessonMaterial: req.query.lessonMaterial,
+      explanation: req.query.explanation,
+      ownInsight: req.query.ownInsight,
+    };
+
+    const data = new HCDPersistence(hcdRating)
+    data.save();
+
+    res.render('./succes', {
       uuid: req.params.uuid
     })
   } catch (error) {
