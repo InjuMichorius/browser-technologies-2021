@@ -5,7 +5,7 @@
     <title>HvA | Account</title>
 </head>
 <body>
-    <form action="/send-account" method="POST">
+    <form id="student" action="/send-account/<%- uuid %>">
         <fieldset>
             <legend>What is your name?</legend>
             <label for="studentName">Name</label>
@@ -16,7 +16,7 @@
             <label for="studentNumber">Number</label>
             <input type="text" id="studentNumber" name="studentNumber" title="studentName" required>
         </fieldset>
-        <input type="submit">
+        <input type="submit" form="student">
     </form>
 </body>
 </html>
