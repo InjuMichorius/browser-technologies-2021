@@ -84,6 +84,10 @@ const BTPersistence = mongoose.model('BT', BTDataSchema);
 const RTWPersistence = mongoose.model('RTW', RTWDataSchema);
 const HCDPersistence = mongoose.model('HCD', HCDDataSchema);
 
+StudentPersistence.findOne({'studentName': 'Inju Michorius'}, function(err, StudentPersistence) {
+  if (err) return handleError(err)
+  console.log(StudentPersistence.studentName)
+})
 
 const app = express()
 const router = express.Router()
