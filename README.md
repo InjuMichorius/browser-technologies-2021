@@ -3,7 +3,7 @@
 
 HvA enquete is a school project I made where HvA students can rate the courses. The project is focused on progressive enhancement, a principle that makes sure the website is accesible for everyone.
 
-[Click here for the live demo](https://injumichorius.github.io/filmaholic-v2/)
+[Click here for the live demo](https://injumichorius.github.io/browser-technologies-2021/)
 
 ## Goal
 The goal of HvA enquete is to provide the HvA with data about their students. The information will be send to a correctly structured database, where the HvA admin can look at the results.
