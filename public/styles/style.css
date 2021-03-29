@@ -1,3 +1,141 @@
-p {
-    color: blueviolet;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+:root {
+    --main-font: 'arial';
+    --black: black;
+    --primary: #2C2A75;
+}
+
+html {
+    background: url('../img/background-image.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header .hva-logo {
+    position: fixed;
+    right: 4%;
+    top: 5%;
+}
+
+main {
+    background-color: white;
+    padding: 2rem 3rem;
+    width: 50%;
+    height: 50%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+::placeholder {
+    color: white;
+}
+
+.account-fieldset {
+    width: 50%;
+    position: relative;
+    height: 50px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+fieldset {
+    margin-bottom: 2rem;
+}
+
+fieldset input[type="text"] {
+    width: 100%;
+    height: 100%;
+    color: var(--primary);
+    padding-top: 20px;
+    border: none;
+    outline: none;
+}
+
+fieldset label.label-name {
+    position: absolute;
+    bottom: 0px;
+    left: 0%;
+    width: 100%;
+    pointer-events: none;
+    border-bottom: 1px solid var(--black);
+}
+
+fieldset label.label-name::after {
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: -1px;
+    height: 100%;
+    width: 100%;
+    border-bottom: 3px solid var(--primary);
+    transform: translateX(-100%);
+    transition: all 0.3s ease;
+}
+
+.input-name {
+    font-family: var(--main-font);
+    position: absolute;
+    bottom: 5px;
+    left: 0px;
+    transition: all 0.3s ease;
+}
+
+fieldset input[type="text"]:focus + label.label-name .input-name,
+fieldset input[type="text"]:valid + label.label-name .input-name{
+    transform: translateY(-150%);
+    font-size: 14px;
+    color: var(--primary);
+}
+
+fieldset input[type="text"]:focus + label.label-name::after, fieldset input[type="text"]:valid + label.label-name::after {
+    transform: translateX(0%);
+}
+
+fieldset {
+    border: none;
+}
+
+legend.account-legend {
+    visibility: hidden;
+    position: fixed;
+    right: 1200rem;
+}
+
+legend {
+    margin-bottom: 1rem;
+}
+
+input[type="submit"] {
+    border: none;
+    background-color: var(--primary);
+    color: white;
+    padding: 1rem;
+    font-weight: bold;
+}
+
+.course {
+    width: 100%;
+}
+
+.course input[type="number"] {
+    margin-bottom: 1rem;
+}
+
+.checkbox-area {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+}
+
+
