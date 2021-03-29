@@ -1,47 +1,15 @@
 # HvA Enquete
 ![](https://github.com/InjuMichorius/Filmaholic/blob/master/images/README%20images/READMECOVER.JPG)
 
-Filmaholic is a movie rating application that rates the suitability of movies to its audience using an API, but this time I am doing this server-sided. 
+HvA enquete is a school project I made where HvA students can rate the courses. The project is focused on progressive enhancement, a principle that makes sure the website is accesible for everyone.
 
-[Click here for the live demo](https://injumichorius.github.io/filmaholic-v2/)
+[Click here for the live demo](https://injumichorius.github.io/browser-technologies-2021/)
 
 ## Goal
-The goal of Filmaholic is to provide its audience with information about movies, so they can make a decision on what to watch. They can also search a movie to see other people's opinions. This application will show the overall rating of any movie using the The Movie DataBase API.
+The goal of HvA enquete is to provide the HvA with data about their students. The information will be send to a correctly structured database, where the HvA admin can look at the results.
 
-## Actor Diagram
-![Image of Actor Diagram](https://github.com/InjuMichorius/Filmaholic/blob/master/images/README%20images/actorDiagram.jpg)
-
-## API
-I made use of [The Movie DB API](https://www.themoviedb.org/) for this project.
-The base endpoint is https://api.themoviedb.org/. All endpoints return either a JSON object or an array. The endpoints I use are popular and ID. This is the structure of a movie array:
-
-```json
-{
-  "adult": false,
-  "backdrop_path":"/8tNX8s3j1O0eqilOQkuroRLyOZA.jpg"
-  "genre_ids":[14,28,12],
-  "id":458576,"original_language":"en",
-  "original_title":"Monster Hunter",
-  "overview":"A portal transports Cpt. Artemis and an elite unit of soldiers to a strange world where powerful monsters rule with deadly ferocity.",
-  "popularity":3079.082,
-  "poster_path":"/uwjaCH7PiWrkz7oWJ4fcL3xGrb0.jpg",
-  "release_date":"2020-12-03",
-  "title":"Monster Hunter",
-  "video":false,
-  "vote_average":7.3,
-  "vote_count":869
-}
-```
-
-The api url needs 3 things.
-* The base URL (https://api.themoviedb.org/)
-* The endpoint (popular)
-* The API key (?api_key=0a00a0a0aaa0aa00a0000a0000a0a0a0)
-
-The returning array will contain result[0] up to result[20]. The result is the movie array I made above.
-
-## Interaction Diagram
-![Image of Interaction Diagram](https://github.com/InjuMichorius/Filmaholic/blob/master/images/README%20images/interactionDiagram.jpg)
+## Database
+filltertext
 
 ## Design patterns and Best Practices
 __Code standards are important__ when working on any project; your code stays *consistent* and is *readable* for everyone. I defined code standards for __HTML__, __CSS__ and __JS__ while working on this project.
@@ -93,7 +61,7 @@ git clone https://github.com/InjuMichorius/Filmaholic.git
 ```
 
 ### Testing
-To test if the application works you can open the index.html file. If you see the movie covers it works!
+fillt=ertext
 
 ## License
 This project is licensed under the MIT license. See the [LISENCE.md](https://github.com/InjuMichorius/Filmaholic/blob/master/LICENSE) file for details
