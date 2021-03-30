@@ -9,7 +9,15 @@ HvA enquete is a school project I made where HvA students can rate the courses. 
 The goal of HvA enquete is to provide the HvA with data about their students. The information will be send to a correctly structured database, where the HvA admin can look at the results.
 
 ## Database
-filltertext
+```json
+{
+  "_id":{"$oid":"606275a73d6d8a2440bab79b"},
+  "uuid":"7c99e779-499b-420c-b38e-f83da0f02b66",
+  "studentName":"Inju Michorius",
+  "studentNumber":"500804843",
+  "__v":0
+}
+```
 
 ## Design patterns and Best Practices
 __Code standards are important__ when working on any project; your code stays *consistent* and is *readable* for everyone. I defined code standards for __HTML__, __CSS__ and __JS__ while working on this project.
