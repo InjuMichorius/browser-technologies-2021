@@ -122,6 +122,7 @@ input[type="submit"] {
     color: white;
     padding: 1rem;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .course {
