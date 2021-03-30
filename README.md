@@ -1,5 +1,5 @@
 # HvA Enquete
-![](https://github.com/InjuMichorius/Filmaholic/blob/master/images/README%20images/READMECOVER.JPG)
+![](https://github.com/InjuMichorius/browser-technologies-2021/blob/master/public/img/documentation/cover.JPG)
 
 HvA enquete is a school project I made where HvA students can rate the courses. The project is focused on progressive enhancement, a principle that makes sure the website is accesible for everyone.
 
