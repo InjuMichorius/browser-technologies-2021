@@ -15,11 +15,11 @@ These instructions will get you a copy of the project up and running on your loc
 To run this project you'll need [Git](https://git-scm.com/downloads), [MongoDB](https://www.mongodb.com) and any [code editor](https://code.visualstudio.com/download)
 
 ### Installing
-First you'll need to clone the repository. You can choose a destination by running cd (change directory). You can clone this repository by using clone https://github.com/InjuMichorius/Filmaholic.git.
+First you'll need to clone the repository. You can choose a destination by running cd (change directory). You can clone this repository by using clone https://github.com/InjuMichorius/hva-enquete.git.
 
 ```js
 cd [ENTER YOUR PATH HERE]
-git clone https://github.com/InjuMichorius/Filmaholic.git
+git clone https://github.com/InjuMichorius/hva-enquete.git
 ```
 You also need to install the modules. To do this, you can type npm install in your terminal.
 
