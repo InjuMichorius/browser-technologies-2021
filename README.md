@@ -48,16 +48,13 @@ npm run dev
 ```
 To test if you've correctly connected to the database you can go to the account page by typing http://localhost:3000 in your browser. Once on this page, you can fill in the form and send it. If it shows in the database, you've correctly connected. You can use Compass for easy visual acces to your database.
 
+## Feature wishlist / backlog
+* register/login feature
+* form error messages
+* remember user input
 
 ## Design patterns and Best Practices
 __Code standards are important__ when working on any project; your code stays *consistent* and is *readable* for everyone. I defined code standards for __HTML__, __CSS__ and __JS__ while working on this project.
-
-## Feature wishlist / backlog
-* A register/login page
-* A way for users to interact
-* A way to rate a movie and update this on the application
-* A small trailer of the movie
-* Reviews
 
 ### Javascript code standards
 * Variables & functions are written in __camelCase__
@@ -83,6 +80,14 @@ __Code standards are important__ when working on any project; your code stays *c
 * Divs are only used when __necessary__ for styling purposes
 * Classes allow easy __re-usage__
 * Indentation is always __clear__
+
+## Packages used
+* [Express](https://www.npmjs.com/package/express) - Used to setup the server
+* [MongoDB](https://www.npmjs.com/package/mongodb) - Used to setup the database
+* [Body-parser](https://www.npmjs.com/package/body-parser) - Used to refer to html elements
+* [Dotenv](https://www.npmjs.com/package/dotenv) - Used to protect sensitive information
+* [Ejs](https://www.npmjs.com/package/ejs) - Used for templating
+* [Nodemon](https://www.npmjs.com/package/nodemon) - Used for auto refreshing the server
 
 ## License
 This project is licensed under the MIT license. See the [LISENCE.md](https://github.com/InjuMichorius/Filmaholic/blob/master/LICENSE) file for details
