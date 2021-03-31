@@ -8,8 +8,27 @@ HvA enquete is a school project I made where HvA students can rate the courses. 
 ## Goal
 The goal of HvA enquete is to provide the HvA with data about their students. The information will be send to a correctly structured database, where the HvA admin can look at the results.
 
-## Database
-```json
+## Getting started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Technical requirements
+To run this project you'll need [Git](https://git-scm.com/downloads), [MongoDB](https://www.mongodb.com) and any [code editor](https://code.visualstudio.com/download)
+
+### Installing
+First you'll need to clone the repository. You can choose a destination by running cd (change directory). You can clone this repository by using clone https://github.com/InjuMichorius/Filmaholic.git.
+
+```js
+cd [ENTER YOUR PATH HERE]
+git clone https://github.com/InjuMichorius/Filmaholic.git
+```
+You also need to install the modules. To do this, you can type npm install in your terminal.
+
+```js
+npm install
+```
+### Setting up the database
+This is the structure of the database:
+```JSON
 {
   "_id":{"$oid":"606275a73d6d8a2440bab79b"},
   "uuid":"7c99e779-499b-420c-b38e-f83da0f02b66",
@@ -19,8 +38,26 @@ The goal of HvA enquete is to provide the HvA with data about their students. Th
 }
 ```
 
+It will look like this in compass:
+![Screenshot of JSON file in Compass](https://github.com/InjuMichorius/browser-technologies-2021/blob/master/public/img/documentation/databaseStructure)
+
+### Testing
+To test if the application works you can type the command below. If the application works, the terminal should say: Example app listening at: http://localhost:3000
+```js
+npm run dev
+```
+To test if you've correctly connected to the database you can go to the account page by typing http://localhost:3000 in your browser. Once on this page, you can fill in the form and send it. If it shows in the database, you've correctly connected. You can use Compass for easy visual acces to your database.
+
+
 ## Design patterns and Best Practices
 __Code standards are important__ when working on any project; your code stays *consistent* and is *readable* for everyone. I defined code standards for __HTML__, __CSS__ and __JS__ while working on this project.
+
+## Feature wishlist / backlog
+* A register/login page
+* A way for users to interact
+* A way to rate a movie and update this on the application
+* A small trailer of the movie
+* Reviews
 
 ### Javascript code standards
 * Variables & functions are written in __camelCase__
@@ -46,30 +83,6 @@ __Code standards are important__ when working on any project; your code stays *c
 * Divs are only used when __necessary__ for styling purposes
 * Classes allow easy __re-usage__
 * Indentation is always __clear__
-
-## Feature wishlist / backlog
-* A register/login page
-* A way for users to interact
-* A way to rate a movie and update this on the application
-* A small trailer of the movie
-* Reviews
-
-## Getting started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Technical requirements
-To run this project you'll need [Git](https://git-scm.com/downloads), [TMDB API](https://developers.themoviedb.org/3) and any [code editor](https://code.visualstudio.com/download)
-
-### Installing
-First you'll need to clone the repository. You can choose a destination by running cd (change directory). You can clone this repository by using clone https://github.com/InjuMichorius/Filmaholic.git.
-
-```js
-cd [ENTER YOUR PATH HERE]
-git clone https://github.com/InjuMichorius/Filmaholic.git
-```
-
-### Testing
-fillt=ertext
 
 ## License
 This project is licensed under the MIT license. See the [LISENCE.md](https://github.com/InjuMichorius/Filmaholic/blob/master/LICENSE) file for details
