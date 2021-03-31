@@ -52,6 +52,7 @@ To test if you've correctly connected to the database you can go to the account 
 * register/login feature
 * form error messages
 * remember user input
+* deploy on Heroku
 
 ## Design patterns and Best Practices
 __Code standards are important__ when working on any project; your code stays *consistent* and is *readable* for everyone. I defined code standards for __HTML__, __CSS__ and __JS__ while working on this project.
