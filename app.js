@@ -139,7 +139,7 @@ app.get('/send-WAFS/:uuid', (req, res) => {
     const data = new WAFSPersistence(wafsRating)
     data.save();
 
-    res.render('./CTTR', {
+    res.render('./CSSTTR', {
       uuid: req.params.uuid
     })
   } catch (error) {
