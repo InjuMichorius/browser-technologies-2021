@@ -5,32 +5,36 @@
     <title>HvA | PWA</title>
 </head>
 <body>
-    <form id="wafs" action="/send-PWA/<%- uuid %>" >
+    <form id="pwa" action="/send-PWA/<%- uuid %>" >
         <fieldset>
             <legend>From which teachers did you get <b>Progressive Web Apps</b>?</legend>
-            <input type="checkbox" name="teacher" id="koop">
-            <label for="koop">Koop</label>
-            <input type="checkbox" name="teacher" id="koch">
-            <label for="koch">Koch</label>
-            <input type="checkbox" name="teacher" id="duncan">
-            <label for="duncan">Duncan</label>
-            <input type="checkbox" name="teacher" id="robin">
-            <label for="robin">Robin</label>
-
+            <input list="teacher" type="text" id="teachers" required>
+            <datalist id="teacher">
+                <option value="Declan Rekt">R2D2</option>
+                <option value="Robin">R2D2</option>
+                <option value="Joost Faber">Squid</option>
+                <option value="Wouter">Squid</option>
+            </datalist>
+        </fieldset>
+        <fieldset>
+            <legend>In what period did you follow this course</legend>
             <label for="startDate">Start date</label>
-            <input type="date"  name="startDate" id="startDate" required>
+            <input type="date" name="startDate" id="startDate" required>
             <label for="endDate">End date</label>
             <input type="date" name="endDate" id="endDate" required>
-
+        </fieldset>
+        <fieldset>
+            <legend>Rate the course on a scale from 1 to 10</legend>
             <label for="lessonMarterial">Lesson material (how hard was it?)</label>
             <input type="number" id="lessonMaterial" name="lessonMaterial" min="1" max="10" required>
             <label for="explanation">Explanation (how clearly is it explained?)</label>
-            <input type="number" id="explanation"  name="explanation" min="1" max="10" required>
+            <input type="number" id="explanation" name="explanation" min="1" max="10" required>
             <label for="ownInsight">Own insight (How well do you get it?)</label>
-            <input type="number" id="ownInsight"  name="ownInsight" min="1" max="10" required>
-
-            <input type="submit" form="wafs">
+            <input type="number" id="ownInsight" name="ownInsight" min="1" max="10" required>
         </fieldset>
+
+        <input type="submit" form="pwa">
     </form>
 </body>
+
 </html>

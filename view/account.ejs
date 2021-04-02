@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('./components/head') %>
-    <title>HvA | Account</title>
+        <title>HvA | Account</title>
 </head>
+
 <body>
-    <form id="student" action="/send-account/<%- uuid %>">
-        <fieldset>
-            <legend>What is your name?</legend>
-            <label for="studentName">Name</label>
-            <input type="text" id="studentName" name="studentName" title="studentName" required>
-        </fieldset>
-        <fieldset>
-            <legend>What is your student number?</legend>
-            <label for="studentNumber">Number</label>
-            <input type="number" id="studentNumber" name="studentNumber" title="studentName" min="500000000" max="600000000" required>
-        </fieldset>
-        <input type="submit" form="student">
-    </form>
+    <header>
+        <a href="hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+    </header>
+    <main>
+        <h1>HvA Enquete</h1>
+        <p>In this survey we want to know how you experienced the courses. What went well
+            and where can we improve? The survey consists of 6 subjects, each containing 3 questions.
+        </p>
+        <form action="/send-account/<%- uuid %>" id="student">
+            <fieldset class="account-fieldset">
+                <legend class="account-legend">What is your name?</legend>
+                <input type="text" id="studentName" name="studentName" autocomplete="off" placeholder="John"
+                    title="First name of the student, matches the student number" required>
+                <label for="studentName" class="label-name">
+                    <span class="input-name">Student name</span>
+                </label>
+            </fieldset>
+
+            <fieldset class="account-fieldset">
+                <legend class="account-legend">What is your student number?</legend>
+                <input type="text" id="studentNumber" name="studentNumber" autocomplete="off" placeholder="500804843"
+                    title="Student number must be a number between 500000000 and 600000000" required>
+                <label for="studentNumber" class="label-name">
+                    <span class="input-name">Student number</span>
+                </label>
+            </fieldset>
+            <input type="submit" form="student">
+        </form>
+    </main>
 </body>
+
 </html>

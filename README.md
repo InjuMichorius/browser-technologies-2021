@@ -1,47 +1,58 @@
 # HvA Enquete
-![](https://github.com/InjuMichorius/Filmaholic/blob/master/images/README%20images/READMECOVER.JPG)
+![](https://github.com/InjuMichorius/browser-technologies-2021/blob/master/public/img/documentation/cover.JPG)
 
-Filmaholic is a movie rating application that rates the suitability of movies to its audience using an API, but this time I am doing this server-sided. 
+HvA enquete is a school project I made where HvA students can rate the courses. The project is focused on progressive enhancement, a principle that makes sure the website is accesible for everyone.
 
-[Click here for the live demo](https://injumichorius.github.io/filmaholic-v2/)
+[Click here for the live demo](https://injumichorius.github.io/hva-enquete)
 
 ## Goal
-The goal of Filmaholic is to provide its audience with information about movies, so they can make a decision on what to watch. They can also search a movie to see other people's opinions. This application will show the overall rating of any movie using the The Movie DataBase API.
+The goal of HvA enquete is to provide the HvA with data about their students. The information will be send to a correctly structured database, where the HvA admin can look at the results.
 
-## Actor Diagram
-![Image of Actor Diagram](https://github.com/InjuMichorius/Filmaholic/blob/master/images/README%20images/actorDiagram.jpg)
+## Getting started
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## API
-I made use of [The Movie DB API](https://www.themoviedb.org/) for this project.
-The base endpoint is https://api.themoviedb.org/. All endpoints return either a JSON object or an array. The endpoints I use are popular and ID. This is the structure of a movie array:
+### Technical requirements
+To run this project you'll need [Git](https://git-scm.com/downloads), [MongoDB](https://www.mongodb.com) and any [code editor](https://code.visualstudio.com/download)
 
-```json
+### Installing
+First you'll need to clone the repository. You can choose a destination by running cd (change directory). You can clone this repository by using clone https://github.com/InjuMichorius/hva-enquete.git.
+
+```js
+cd [ENTER YOUR PATH HERE]
+git clone https://github.com/InjuMichorius/hva-enquete.git
+```
+You also need to install the modules. To do this, you can type npm install in your terminal.
+
+```js
+npm install
+```
+### Setting up the database
+This is the structure of the database:
+```JSON
 {
-  "adult": false,
-  "backdrop_path":"/8tNX8s3j1O0eqilOQkuroRLyOZA.jpg"
-  "genre_ids":[14,28,12],
-  "id":458576,"original_language":"en",
-  "original_title":"Monster Hunter",
-  "overview":"A portal transports Cpt. Artemis and an elite unit of soldiers to a strange world where powerful monsters rule with deadly ferocity.",
-  "popularity":3079.082,
-  "poster_path":"/uwjaCH7PiWrkz7oWJ4fcL3xGrb0.jpg",
-  "release_date":"2020-12-03",
-  "title":"Monster Hunter",
-  "video":false,
-  "vote_average":7.3,
-  "vote_count":869
+  "_id":{"$oid":"606275a73d6d8a2440bab79b"},
+  "uuid":"7c99e779-499b-420c-b38e-f83da0f02b66",
+  "studentName":"Inju Michorius",
+  "studentNumber":"500804843",
+  "__v":0
 }
 ```
 
-The api url needs 3 things.
-* The base URL (https://api.themoviedb.org/)
-* The endpoint (popular)
-* The API key (?api_key=0a00a0a0aaa0aa00a0000a0000a0a0a0)
+It will look like this in compass:
+![Screenshot of JSON file in Compass](https://github.com/InjuMichorius/browser-technologies-2021/blob/master/public/img/documentation/databaseStructure)
 
-The returning array will contain result[0] up to result[20]. The result is the movie array I made above.
+### Testing
+To test if the application works you can type the command below. If the application works, the terminal should say: Example app listening at: http://localhost:3000
+```js
+npm run dev
+```
+To test if you've correctly connected to the database you can go to the account page by typing http://localhost:3000 in your browser. Once on this page, you can fill in the form and send it. If it shows in the database, you've correctly connected. You can use Compass for easy visual acces to your database.
 
-## Interaction Diagram
-![Image of Interaction Diagram](https://github.com/InjuMichorius/Filmaholic/blob/master/images/README%20images/interactionDiagram.jpg)
+## Feature wishlist / backlog
+* register/login feature
+* form error messages
+* remember user input
+* deploy on Heroku
 
 ## Design patterns and Best Practices
 __Code standards are important__ when working on any project; your code stays *consistent* and is *readable* for everyone. I defined code standards for __HTML__, __CSS__ and __JS__ while working on this project.
@@ -71,29 +82,13 @@ __Code standards are important__ when working on any project; your code stays *c
 * Classes allow easy __re-usage__
 * Indentation is always __clear__
 
-## Feature wishlist / backlog
-* A register/login page
-* A way for users to interact
-* A way to rate a movie and update this on the application
-* A small trailer of the movie
-* Reviews
-
-## Getting started
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Technical requirements
-To run this project you'll need [Git](https://git-scm.com/downloads), [TMDB API](https://developers.themoviedb.org/3) and any [code editor](https://code.visualstudio.com/download)
-
-### Installing
-First you'll need to clone the repository. You can choose a destination by running cd (change directory). You can clone this repository by using clone https://github.com/InjuMichorius/Filmaholic.git.
-
-```js
-cd [ENTER YOUR PATH HERE]
-git clone https://github.com/InjuMichorius/Filmaholic.git
-```
-
-### Testing
-To test if the application works you can open the index.html file. If you see the movie covers it works!
+## Packages used
+* [Express](https://www.npmjs.com/package/express) - Used to setup the server
+* [MongoDB](https://www.npmjs.com/package/mongodb) - Used to setup the database
+* [Body-parser](https://www.npmjs.com/package/body-parser) - Used to refer to html elements
+* [Dotenv](https://www.npmjs.com/package/dotenv) - Used to protect sensitive information
+* [Ejs](https://www.npmjs.com/package/ejs) - Used for templating
+* [Nodemon](https://www.npmjs.com/package/nodemon) - Used for auto refreshing the server
 
 ## License
 This project is licensed under the MIT license. See the [LISENCE.md](https://github.com/InjuMichorius/Filmaholic/blob/master/LICENSE) file for details

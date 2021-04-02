@@ -20,61 +20,61 @@ const StudentDataSchema = new Schema({
   uuid: { type: String, required: true },
   studentName: { type: String, required: true },
   studentNumber: { type: String, required: true },
-}, { collection: 'Student'});
+}, { collection: 'Student' });
 
 const WAFSDataSchema = new Schema({
   uuid: { type: String, required: true },
   startDate: { type: String, required: true },
   endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true},
-  explanation: { type: String, required: true},
-  ownInsight: { type: String, required: true}
-}, { collection: 'WAFS'});
+  lessonMaterial: { type: String, required: true },
+  explanation: { type: String, required: true },
+  ownInsight: { type: String, required: true }
+}, { collection: 'WAFS' });
 
 const CSSTTRDataSchema = new Schema({
   uuid: { type: String, required: true },
   startDate: { type: String, required: true },
   endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true},
-  explanation: { type: String, required: true},
-  ownInsight: { type: String, required: true}
-}, { collection: 'CSSTTR'});
+  lessonMaterial: { type: String, required: true },
+  explanation: { type: String, required: true },
+  ownInsight: { type: String, required: true }
+}, { collection: 'CSSTTR' });
 
 const PWADataSchema = new Schema({
   uuid: { type: String, required: true },
   startDate: { type: String, required: true },
   endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true},
-  explanation: { type: String, required: true},
-  ownInsight: { type: String, required: true}
-}, { collection: 'PWA'});
+  lessonMaterial: { type: String, required: true },
+  explanation: { type: String, required: true },
+  ownInsight: { type: String, required: true }
+}, { collection: 'PWA' });
 
 const BTDataSchema = new Schema({
   uuid: { type: String, required: true },
   startDate: { type: String, required: true },
   endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true},
-  explanation: { type: String, required: true},
-  ownInsight: { type: String, required: true}
-}, { collection: 'BT'});
+  lessonMaterial: { type: String, required: true },
+  explanation: { type: String, required: true },
+  ownInsight: { type: String, required: true }
+}, { collection: 'BT' });
 
 const RTWDataSchema = new Schema({
   uuid: { type: String, required: true },
   startDate: { type: String, required: true },
   endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true},
-  explanation: { type: String, required: true},
-  ownInsight: { type: String, required: true}
-}, { collection: 'RTW'});
+  lessonMaterial: { type: String, required: true },
+  explanation: { type: String, required: true },
+  ownInsight: { type: String, required: true }
+}, { collection: 'RTW' });
 
 const HCDDataSchema = new Schema({
   uuid: { type: String, required: true },
   startDate: { type: String, required: true },
   endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true},
-  explanation: { type: String, required: true},
-  ownInsight: { type: String, required: true}
-}, { collection: 'HCD'});
+  lessonMaterial: { type: String, required: true },
+  explanation: { type: String, required: true },
+  ownInsight: { type: String, required: true }
+}, { collection: 'HCD' });
 
 const StudentPersistence = mongoose.model('Student', StudentDataSchema);
 const WAFSPersistence = mongoose.model('WAFS', WAFSDataSchema);
@@ -83,7 +83,6 @@ const PWAPersistence = mongoose.model('PWA', PWADataSchema);
 const BTPersistence = mongoose.model('BT', BTDataSchema);
 const RTWPersistence = mongoose.model('RTW', RTWDataSchema);
 const HCDPersistence = mongoose.model('HCD', HCDDataSchema);
-
 
 const app = express()
 const router = express.Router()
@@ -106,6 +105,7 @@ app.get('/', (req, res) => {
   })
 });
 
+
 app.get('/send-account/:uuid', (req, res) => {
   try {
     const student = {
@@ -114,8 +114,13 @@ app.get('/send-account/:uuid', (req, res) => {
       studentNumber: req.query.studentNumber
     };
 
+    // StudentPersistence.findOne({ 'studentName': student.studentName }, function (err, StudentPersistence) {
+    //   if (err) return handleError(err)
+    // })
+    // console.log(StudentPersistence.studentName)
     const data = new StudentPersistence(student)
     data.save();
+
 
     res.render('./WAFS', {
       uuid: req.params.uuid
@@ -259,5 +264,5 @@ app.get('/send-HCD/:uuid', (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Example app listening at: http://localhost:${port}`)
 })

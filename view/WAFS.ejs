@@ -1,36 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('./components/head') %>
-    <title>HvA | WAFS</title>
+        <title>HvA | WAFS</title>
 </head>
+
 <body>
-    <form id="wafs" action="/send-WAFS/<%- uuid %>" >
-        <fieldset>
-            <legend>From which teachers did you get <b>Web App from Scratch</b>?</legend>
-            <input type="checkbox" name="teacher" id="koop">
-            <label for="koop">Koop</label>
-            <input type="checkbox" name="teacher" id="koch">
-            <label for="koch">Koch</label>
-            <input type="checkbox" name="teacher" id="duncan">
-            <label for="duncan">Duncan</label>
-            <input type="checkbox" name="teacher" id="robin">
-            <label for="robin">Robin</label>
+    <header>
+        <a href="hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+    </header>
+    <main>
+        <form id="wafs" action="/send-WAFS/<%- uuid %>">
+            <fieldset class="checkbox-area">
+                <legend>From which teachers did you get <b>Web App from Scratch</b>?</legend>
 
-            <label for="startDate">Start date</label>
-            <input type="date"  name="startDate" id="startDate" required>
-            <label for="endDate">End date</label>
-            <input type="date" name="endDate" id="endDate" required>
+                <input list="teacher" type="text" id="teachers" required>
+                <datalist id="teacher">
+                    <option value="Joost Faber">R2D2</option>
+                    <option value="Wouter">R2D2</option>
+                    <option value="Suus">Squid</option>
+                    <option value="Robin">Squid</option>
+                </datalist>
 
-            <label for="lessonMarterial">Lesson material (how hard was it?)</label>
-            <input type="number" id="lessonMaterial" name="lessonMaterial" min="1" max="10" required>
-            <label for="explanation">Explanation (how clearly is it explained?)</label>
-            <input type="number" id="explanation"  name="explanation" min="1" max="10" required>
-            <label for="ownInsight">Own insight (How well do you get it?)</label>
-            <input type="number" id="ownInsight"  name="ownInsight" min="1" max="10" required>
+            </fieldset>
+            <fieldset class="course">
+                <legend>In what period did you follow this course?</legend>
+                <label for="startDate">Start date</label>
+                <input type="date" name="startDate" id="startDate"
+                    title="The first day the student has taken the courses" required>
+                <label for="endDate">End date</label>
+                <input type="date" name="endDate" id="endDate" title="The last day the student has taken the courses"
+                    required>
+            </fieldset>
+            <fieldset class="course">
+                <legend>Rate the course on a scale from 1 to 10</legend>
+                <label for="lessonMarterial" class="rating">Lesson material (how hard was it?)</label>
+                <input type="number" id="lessonMaterial" name="lessonMaterial" placeholder="1-10" min="1" max="10"
+                    title="How hard was the lesson material?" required>
+                <br>
+                <label for="explanation">Explanation (how clearly is it explained?)</label>
+                <input type="number" id="explanation" name="explanation" placeholder="1-10" min="1" max="10"
+                    title="How clearly was the teacher material explained?" required>
+                <br>
+                <label for="ownInsight">Own insight (How well do you get it?)</label>
+                <input type="number" id="ownInsight" name="ownInsight" placeholder="1-10" min="1" max="10"
+                    title="How well did you get the teaching material?" required>
+                
+            </fieldset>
 
             <input type="submit" form="wafs">
-        </fieldset>
-    </form>
+        </form>
+    </main>
 </body>
+
 </html>

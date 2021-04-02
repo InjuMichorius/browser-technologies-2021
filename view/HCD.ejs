@@ -10,14 +10,10 @@
     <form id="wafs" action="/send-HCD/<%- uuid %>">
         <fieldset>
             <legend>From which teachers did you get <b>Human Centred Design</b>?</legend>
-            <input type="checkbox" name="teacher" id="koop">
-            <label for="koop">Koop</label>
-            <input type="checkbox" name="teacher" id="koch">
-            <label for="koch">Koch</label>
-            <input type="checkbox" name="teacher" id="duncan">
-            <label for="duncan">Duncan</label>
-            <input type="checkbox" name="teacher" id="robin">
-            <label for="robin">Robin</label>
+            <input list="teacher" type="text" id="teachers" required>
+            <datalist id="teacher">
+                <option value="¯\_(ツ)_/¯">R2D2</option>
+            </datalist>
 
             <label for="startDate">Start date</label>
             <input type="date" id="startDate" required>
