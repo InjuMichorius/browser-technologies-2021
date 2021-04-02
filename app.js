@@ -38,7 +38,6 @@ const Student = mongoose.model('Student', StudentDataSchema);
 const WAFS = mongoose.model('WAFS', WAFSDataSchema);
 
 const app = express()
-const router = express.Router()
 const port = 3000
 
 //Identifying default path
@@ -69,6 +68,7 @@ app.get('/WAFS/:uuid', (req, res) => {
 
         const emptyFormData = {
           uuid: req.params.uuid,
+          teacher: ' ',
           startDate: ' ',
           endDate: ' ',
           lessonMaterial: ' ',
@@ -80,6 +80,7 @@ app.get('/WAFS/:uuid', (req, res) => {
       } else {
         const formData = {
           uuid: req.params.uuid,
+          teacher: data[0].teacher,
           startDate: data[0].startDate,
           endDate: data[0].endDate,
           lessonMaterial: data[0].lessonMaterial,
@@ -93,27 +94,63 @@ app.get('/WAFS/:uuid', (req, res) => {
 });
 
 app.get('/send-WAFS/:uuid', (req, res) => {
-  try {
-    
-    const wafsRating = {
-      uuid: req.params.uuid,
-      teacher: req.query.teacher,
-      startDate: req.query.startDate,
-      endDate: req.query.endDate,
-      lessonMaterial: req.query.lessonMaterial,
-      explanation: req.query.explanation,
-      ownInsight: req.query.ownInsight,
-    };
+  WAFS.find({ uuid: req.params.uuid }, (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      WAFS.findOne({ uuid: req.params.uuid }, function (err, foundObject) {
+        if (err) {
+          console.log(err)
+        } else {
+          if (!foundObject) {
+            //user has not filled in form
+            const wafsRating = {
+              uuid: req.params.uuid,
+              teacher: req.query.teacher,
+              startDate: req.query.startDate,
+              endDate: req.query.endDate,
+              lessonMaterial: req.query.lessonMaterial,
+              explanation: req.query.explanation,
+              ownInsight: req.query.ownInsight,
+            }
 
-    const data = new WAFS(wafsRating)
-    data.save();
-    res.render('./overview', {
-      uuid: req.params.uuid
-    })
-  } catch (error) {
-    console.log(error);
-  }
+            const data = new WAFS(wafsRating)
+            data.save();
+            console.log(data)
+          } else {
+            if (req.query.teacher) {
+              foundObject.teacher = req.query.teacher
+            }
+            if (req.query.startDate) {
+              foundObject.startDate = req.query.startDate
+            }
+            if (req.query.endDate) {
+              foundObject.endDate = req.query.endDate
+            }
+            if (req.query.lessonMaterial) {
+              foundObject.lessonMaterial = req.query.lessonMaterial
+            }
+            if (req.query.Explanation) {
+              foundObject.Explanation = req.query.Explanation
+            }
+            if (req.query.ownInsight) {
+              foundObject.ownInsight = req.query.ownInsight
+            }
+            foundObject.save(function (err, updatedObject) {
+              if (err) {
+                console.log(err)
+              }
+            })
+          }
+        }
+      })
+    }
+  })
+  res.render('./overview', {
+    uuid: req.params.uuid
+  })
 })
+
 
 app.get('/send-account/:uuid', (req, res) => {
   //Checks if user input matches DB
@@ -157,6 +194,9 @@ app.get('/send-account/:uuid', (req, res) => {
     }
   })
 })
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at: http://localhost:${port}`)
