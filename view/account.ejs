@@ -12,11 +12,14 @@
     </header>
     <main>
         <h1>HvA Enquete</h1>
-        <p></p>
-        <form action="/send-account/<%- uuid %>">
+        <p>In this survey we want to know how you experienced the courses. What went well
+            and where can we improve? The survey consists of 6 subjects, each containing 3 questions.
+        </p>
+        
+        <form action="/send-account/<%- uuid %>" id="student">
             <fieldset class="account-fieldset">
                 <legend class="account-legend">What is your name?</legend>
-                <input type="text" id="studentName" name="studentName" autocomplete="off" placeholder="John"
+                <input type="text" id="studentName" name="studentName" placeholder="John"
                     title="First name of the student, matches the student number" required>
                 <label for="studentName" class="label-name">
                     <span class="input-name">Student name</span>
@@ -25,13 +28,13 @@
 
             <fieldset class="account-fieldset">
                 <legend class="account-legend">What is your student number?</legend>
-                <input type="text" id="studentNumber" name="studentNumber" autocomplete="off" placeholder="500804843"
+                <input type="text" id="studentNumber" name="studentNumber" placeholder="500804843"
                     title="Student number must be a number between 500000000 and 600000000" required>
                 <label for="studentNumber" class="label-name">
                     <span class="input-name">Student number</span>
                 </label>
             </fieldset>
-            <input type="submit">
+            <input type="submit" form="student">
         </form>
     </main>
 </body>

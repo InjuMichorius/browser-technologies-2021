@@ -1,36 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include('./components/head') %>
-    <title>HvA | CCSTTR</title>
+        <title>HvA | CSSTTR</title>
 </head>
+
 <body>
     <main>
         <form id="cssttr" action="/send-CSSTTR/<%- uuid %>">
-            <fieldset class="checkbox-area">
-                <legend>From which teachers did you get <b>CSS to the Rescue</b>?</legend>
-
-                <label for="koop" class="teachers">Koop Reynders
-                    <input type="checkbox" name="teacher" id="koop">
-                    <span class="checkmark"></span>
-                </label>
-
-                <label for="joost" class="teachers">Joost Faber
-                    <input type="checkbox" name="teacher" id="joost">
-                    <span class="checkmark"></span>
-                </label>
-
-                <label for="koch" class="teachers">Peter Paul Koch
-                    <input type="checkbox" name="teacher" id="koch">
-                    <span class="checkmark"></span>
-                </label>
-
-                <label for="sanne" class="teachers">Sanne 't Hooft
-                    <input type="checkbox" name="teacher" id="sanne">
-                    <span class="checkmark"></span>
-                </label>
-
+            <fieldset>
+                <legend>From which teachers did you get <b>CSS to the rescue</b>?</legend>
+                <input list="teacher" type="text" id="teachers" autocomplete="off" required>
+                <datalist id="teacher">
+                    <option value="Sanne 't Hooft">R2D2</option>
+                    <option value="Vasilis van Gemert">Squid</option>
+                </datalist>
             </fieldset>
+
             <fieldset class="course">
                 <legend>In what period did you follow this course?</legend>
                 <label for="startDate">Start date</label>
@@ -40,6 +27,7 @@
                 <input type="date" name="endDate" id="endDate" title="The last day the student has taken the courses"
                     required>
             </fieldset>
+
             <fieldset class="course">
                 <legend>Rate the course on a scale from 1 to 10</legend>
                 <label for="lessonMarterial" class="rating">Lesson material (how hard was it?)</label>
@@ -53,7 +41,6 @@
                 <label for="ownInsight">Own insight (How well do you get it?)</label>
                 <input type="number" id="ownInsight" name="ownInsight" placeholder="1-10" min="1" max="10"
                     title="How well did you get the teaching material?" required>
-                
             </fieldset>
 
             <input type="submit" form="cssttr">

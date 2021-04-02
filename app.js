@@ -3,7 +3,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const account = require('./public/source/routes/account.js')
 const mongoose = require('mongoose')
-const path = require('path')
+const path = require('path');
+const { Db } = require('mongodb');
 
 //Config our .env file
 require('dotenv').config()
@@ -77,13 +78,13 @@ const HCDDataSchema = new Schema({
   ownInsight: { type: String, required: true }
 }, { collection: 'HCD' });
 
-const StudentPersistence = mongoose.model('Student', StudentDataSchema);
-const WAFSPersistence = mongoose.model('WAFS', WAFSDataSchema);
-const CSSTTRPersistence = mongoose.model('CSSTTR', CSSTTRDataSchema);
-const PWAPersistence = mongoose.model('PWA', PWADataSchema);
-const BTPersistence = mongoose.model('BT', BTDataSchema);
-const RTWPersistence = mongoose.model('RTW', RTWDataSchema);
-const HCDPersistence = mongoose.model('HCD', HCDDataSchema);
+const Student = mongoose.model('Student', StudentDataSchema);
+const WAFS = mongoose.model('WAFS', WAFSDataSchema);
+const CSSTTR = mongoose.model('CSSTTR', CSSTTRDataSchema);
+const PWA = mongoose.model('PWA', PWADataSchema);
+const BT = mongoose.model('BT', BTDataSchema);
+const RTW = mongoose.model('RTW', RTWDataSchema);
+const HCD = mongoose.model('HCD', HCDDataSchema);
 
 const app = express()
 const router = express.Router()
@@ -101,34 +102,16 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', (req, res) => {
-  res.render('succes', {
+  res.render('account', {
     uuid: uuidv4().toString()
   })
 });
 
-
-app.get('/send-account/:uuid', (req, res) => {
-  try {
-    const student = {
-      uuid: req.params.uuid,
-      studentName: req.query.studentName,
-      studentNumber: req.query.studentNumber
-    };
-
-    // StudentPersistence.findOne({ 'studentName': student.studentName }, function (err, StudentPersistence) {
-    //   if (err) return handleError(err)
-    // })
-    // console.log(StudentPersistence.studentName)
-    const data = new StudentPersistence(student)
-    data.save();
-
-
-    res.render('./WAFS', {
-      uuid: req.params.uuid
-    })
-  } catch (err) {
-    console.log(err);
-  }
+app.get('/WAFS/:uuid', (req, res) => {
+  res.render('WAFS', {
+    uuid: req.params.uuid,
+    studentName: req.query.studentName
+  })
 });
 
 app.get('/send-WAFS/:uuid', (req, res) => {
@@ -142,10 +125,10 @@ app.get('/send-WAFS/:uuid', (req, res) => {
       ownInsight: req.query.ownInsight,
     };
 
-    const data = new WAFSPersistence(wafsRating)
+    const data = new WAFS(wafsRating)
     data.save();
 
-    res.render('./CTTR', {
+    res.render('./overview', {
       uuid: req.params.uuid
     })
   } catch (error) {
@@ -164,7 +147,7 @@ app.get('/send-CSSTTR/:uuid', (req, res) => {
       ownInsight: req.query.ownInsight,
     };
 
-    const data = new CSSTTRPersistence(cssttrRating)
+    const data = new CSSTTR(cssttrRating)
     data.save();
 
     res.render('./PWA', {
@@ -186,7 +169,7 @@ app.get('/send-PWA/:uuid', (req, res) => {
       ownInsight: req.query.ownInsight,
     };
 
-    const data = new PWAPersistence(pwaRating)
+    const data = new PWA(pwaRating)
     data.save();
 
     res.render('./BT', {
@@ -208,7 +191,7 @@ app.get('/send-BT/:uuid', (req, res) => {
       ownInsight: req.query.ownInsight,
     };
 
-    const data = new BTPersistence(btRating)
+    const data = new BT(btRating)
     data.save();
 
     res.render('./RTW', {
@@ -230,7 +213,7 @@ app.get('/send-RTW/:uuid', (req, res) => {
       ownInsight: req.query.ownInsight,
     };
 
-    const data = new RTWPersistence(rtwRating)
+    const data = new RTW(rtwRating)
     data.save();
 
     res.render('./HCD', {
@@ -252,7 +235,7 @@ app.get('/send-HCD/:uuid', (req, res) => {
       ownInsight: req.query.ownInsight,
     };
 
-    const data = new HCDPersistence(hcdRating)
+    const data = new HCD(hcdRating)
     data.save();
 
     res.render('./succes', {
@@ -262,6 +245,55 @@ app.get('/send-HCD/:uuid', (req, res) => {
     console.log(error);
   }
 })
+
+
+
+app.get('/send-account/:uuid', (req, res) => {
+  //Checks if user input matches DB
+  Student.find({studentName: req.query.studentName, studentNumber: req.query.studentNumber}, (err, data) => {
+    if(err) {
+      //Logging any errors occuring while searching
+      console.log(err)
+    } else {
+      //If the user doesn't exist, it returns an empty array.
+      if(data.length === 0) {
+        console.log('No match')
+      } else {
+        //User exists
+        console.log(data)
+        console.log(data[0].uuid)
+        console.log(req.params.uuid)
+
+        
+
+        res.render('./overview', {
+          uuid:req.params.uuid,
+          studentName:req.query.studentName
+        })
+      }
+    }
+  })
+})
+
+// app.get('/send-account/:uuid', (req, res) => {
+//   try {
+//     const student = {
+//       uuid: req.params.uuid,
+//       studentName: req.query.studentName,
+//       studentNumber: req.query.studentNumber
+//     };
+
+//     const data = new Student(student)
+//     data.save();
+
+
+//     res.render('./WAFS', {
+//       uuid: req.params.uuid
+//     })
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 
 app.listen(port, () => {
