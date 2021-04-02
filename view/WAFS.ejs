@@ -10,7 +10,7 @@
     <main>
         <form id="wafs" action="/send-WAFS/<%- uuid %>">
             <fieldset class="checkbox-area">
-                <legend>From which teachers did you get <b>Web App from Scratch</b>?</legend>
+                <legend>From which teachers did <%- explanation %> you get <b>Web App from Scratch</b>?</legend>
 
                 <input list="teacher" type="text" id="teachers" autocomplete="off" placeholder="Choose your teacher" required>
                 <datalist id="teacher">
@@ -22,7 +22,6 @@
 
             </fieldset>
             <fieldset class="course">
-                <input type="week">
                 <legend>In what period did you follow this course?</legend>
                 <label for="startDate">Start date</label>
                 <input type="date" name="startDate" id="startDate"

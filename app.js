@@ -108,10 +108,22 @@ app.get('/', (req, res) => {
 });
 
 app.get('/WAFS/:uuid', (req, res) => {
-  res.render('WAFS', {
-    uuid: req.params.uuid,
-    studentName: req.query.studentName
+  WAFS.find({ uuid: req.params.uuid }, (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      const formData = {
+        uuid: data[0].uuid,
+        startDate: data[0].startDate,
+        endDate: data[0].endDate,
+        lessonMaterial: data[0].lessonMaterial,
+        explanation: data[0].explanation,
+        ownInsight: data[0].ownInsight
+      }
+      res.render('WAFS', formData)
+    }
   })
+
 });
 
 app.get('/send-WAFS/:uuid', (req, res) => {
@@ -250,50 +262,49 @@ app.get('/send-HCD/:uuid', (req, res) => {
 
 app.get('/send-account/:uuid', (req, res) => {
   //Checks if user input matches DB
-  Student.find({studentName: req.query.studentName, studentNumber: req.query.studentNumber}, (err, data) => {
-    if(err) {
+  Student.find({ studentName: req.query.studentName, studentNumber: req.query.studentNumber }, (err, data) => {
+    if (err) {
       //Logging any errors occuring while searching
       console.log(err)
     } else {
       //If the user doesn't exist, it returns an empty array.
-      if(data.length === 0) {
+      if (data.length === 0) {
         console.log('No match')
+
+        // app.get('/send-account/:uuid', (req, res) => {
+        //   try {
+        //     const student = {
+        //       uuid: req.params.uuid,
+        //       studentName: req.query.studentName,
+        //       studentNumber: req.query.studentNumber
+        //     };
+
+        //     const data = new Student(student)
+        //     data.save();
+
+
+        //     res.render('./WAFS', {
+        //       uuid: req.params.uuid
+        //     })
+        //   } catch (err) {
+        //     console.log(err);
+        //   }
+        // });
+
       } else {
         //User exists
-        console.log(data)
-        console.log(data[0].uuid)
-        console.log(req.params.uuid)
-
-        
+        let userId = data[0].uuid
 
         res.render('./overview', {
-          uuid:req.params.uuid,
-          studentName:req.query.studentName
+          uuid: userId,
+          studentName: req.query.studentName
         })
       }
     }
   })
 })
 
-// app.get('/send-account/:uuid', (req, res) => {
-//   try {
-//     const student = {
-//       uuid: req.params.uuid,
-//       studentName: req.query.studentName,
-//       studentNumber: req.query.studentNumber
-//     };
 
-//     const data = new Student(student)
-//     data.save();
-
-
-//     res.render('./WAFS', {
-//       uuid: req.params.uuid
-//     })
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
 
 
 app.listen(port, () => {
