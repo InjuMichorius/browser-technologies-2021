@@ -26,6 +26,7 @@ const StudentDataSchema = new Schema({
 
 const WAFSDataSchema = new Schema({
   uuid: { type: String, required: true },
+  teacher: { type: String, required: true },
   startDate: { type: String, required: true },
   endDate: { type: String, required: true },
   lessonMaterial: { type: String, required: true },
@@ -33,58 +34,8 @@ const WAFSDataSchema = new Schema({
   ownInsight: { type: String, required: true }
 }, { collection: 'WAFS' });
 
-const CSSTTRDataSchema = new Schema({
-  uuid: { type: String, required: true },
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true },
-  explanation: { type: String, required: true },
-  ownInsight: { type: String, required: true }
-}, { collection: 'CSSTTR' });
-
-const PWADataSchema = new Schema({
-  uuid: { type: String, required: true },
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true },
-  explanation: { type: String, required: true },
-  ownInsight: { type: String, required: true }
-}, { collection: 'PWA' });
-
-const BTDataSchema = new Schema({
-  uuid: { type: String, required: true },
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true },
-  explanation: { type: String, required: true },
-  ownInsight: { type: String, required: true }
-}, { collection: 'BT' });
-
-const RTWDataSchema = new Schema({
-  uuid: { type: String, required: true },
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true },
-  explanation: { type: String, required: true },
-  ownInsight: { type: String, required: true }
-}, { collection: 'RTW' });
-
-const HCDDataSchema = new Schema({
-  uuid: { type: String, required: true },
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true },
-  explanation: { type: String, required: true },
-  ownInsight: { type: String, required: true }
-}, { collection: 'HCD' });
-
 const Student = mongoose.model('Student', StudentDataSchema);
 const WAFS = mongoose.model('WAFS', WAFSDataSchema);
-const CSSTTR = mongoose.model('CSSTTR', CSSTTRDataSchema);
-const PWA = mongoose.model('PWA', PWADataSchema);
-const BT = mongoose.model('BT', BTDataSchema);
-const RTW = mongoose.model('RTW', RTWDataSchema);
-const HCD = mongoose.model('HCD', HCDDataSchema);
 
 const app = express()
 const router = express.Router()
@@ -108,28 +59,45 @@ app.get('/', (req, res) => {
 });
 
 app.get('/WAFS/:uuid', (req, res) => {
+
   WAFS.find({ uuid: req.params.uuid }, (err, data) => {
     if (err) {
       console.log(err)
     } else {
-      const formData = {
-        uuid: data[0].uuid,
-        startDate: data[0].startDate,
-        endDate: data[0].endDate,
-        lessonMaterial: data[0].lessonMaterial,
-        explanation: data[0].explanation,
-        ownInsight: data[0].ownInsight
+      if (data.length === 0) {
+        console.log('User has no form data')
+
+        const emptyFormData = {
+          uuid: req.params.uuid,
+          startDate: ' ',
+          endDate: ' ',
+          lessonMaterial: ' ',
+          explanation: ' ',
+          ownInsight: ' '
+        }
+
+        res.render('WAFS', emptyFormData)
+      } else {
+        const formData = {
+          uuid: req.params.uuid,
+          startDate: data[0].startDate,
+          endDate: data[0].endDate,
+          lessonMaterial: data[0].lessonMaterial,
+          explanation: data[0].explanation,
+          ownInsight: data[0].ownInsight
+        }
+        res.render('WAFS', formData)
       }
-      res.render('WAFS', formData)
     }
   })
-
 });
 
 app.get('/send-WAFS/:uuid', (req, res) => {
   try {
+    
     const wafsRating = {
       uuid: req.params.uuid,
+      teacher: req.query.teacher,
       startDate: req.query.startDate,
       endDate: req.query.endDate,
       lessonMaterial: req.query.lessonMaterial,
@@ -139,7 +107,6 @@ app.get('/send-WAFS/:uuid', (req, res) => {
 
     const data = new WAFS(wafsRating)
     data.save();
-
     res.render('./overview', {
       uuid: req.params.uuid
     })
@@ -147,118 +114,6 @@ app.get('/send-WAFS/:uuid', (req, res) => {
     console.log(error);
   }
 })
-
-app.get('/send-CSSTTR/:uuid', (req, res) => {
-  try {
-    const cssttrRating = {
-      uuid: req.params.uuid,
-      startDate: req.query.startDate,
-      endDate: req.query.endDate,
-      lessonMaterial: req.query.lessonMaterial,
-      explanation: req.query.explanation,
-      ownInsight: req.query.ownInsight,
-    };
-
-    const data = new CSSTTR(cssttrRating)
-    data.save();
-
-    res.render('./PWA', {
-      uuid: req.params.uuid
-    })
-  } catch (error) {
-    console.log(error);
-  }
-})
-
-app.get('/send-PWA/:uuid', (req, res) => {
-  try {
-    const pwaRating = {
-      uuid: req.params.uuid,
-      startDate: req.query.startDate,
-      endDate: req.query.endDate,
-      lessonMaterial: req.query.lessonMaterial,
-      explanation: req.query.explanation,
-      ownInsight: req.query.ownInsight,
-    };
-
-    const data = new PWA(pwaRating)
-    data.save();
-
-    res.render('./BT', {
-      uuid: req.params.uuid
-    })
-  } catch (error) {
-    console.log(error);
-  }
-})
-
-app.get('/send-BT/:uuid', (req, res) => {
-  try {
-    const btRating = {
-      uuid: req.params.uuid,
-      startDate: req.query.startDate,
-      endDate: req.query.endDate,
-      lessonMaterial: req.query.lessonMaterial,
-      explanation: req.query.explanation,
-      ownInsight: req.query.ownInsight,
-    };
-
-    const data = new BT(btRating)
-    data.save();
-
-    res.render('./RTW', {
-      uuid: req.params.uuid
-    })
-  } catch (error) {
-    console.log(error);
-  }
-})
-
-app.get('/send-RTW/:uuid', (req, res) => {
-  try {
-    const rtwRating = {
-      uuid: req.params.uuid,
-      startDate: req.query.startDate,
-      endDate: req.query.endDate,
-      lessonMaterial: req.query.lessonMaterial,
-      explanation: req.query.explanation,
-      ownInsight: req.query.ownInsight,
-    };
-
-    const data = new RTW(rtwRating)
-    data.save();
-
-    res.render('./HCD', {
-      uuid: req.params.uuid
-    })
-  } catch (error) {
-    console.log(error);
-  }
-})
-
-app.get('/send-HCD/:uuid', (req, res) => {
-  try {
-    const hcdRating = {
-      uuid: req.params.uuid,
-      startDate: req.query.startDate,
-      endDate: req.query.endDate,
-      lessonMaterial: req.query.lessonMaterial,
-      explanation: req.query.explanation,
-      ownInsight: req.query.ownInsight,
-    };
-
-    const data = new HCD(hcdRating)
-    data.save();
-
-    res.render('./succes', {
-      uuid: req.params.uuid
-    })
-  } catch (error) {
-    console.log(error);
-  }
-})
-
-
 
 app.get('/send-account/:uuid', (req, res) => {
   //Checks if user input matches DB
@@ -292,20 +147,16 @@ app.get('/send-account/:uuid', (req, res) => {
         // });
 
       } else {
-        //User exists
+        //User exists, change generated UUID to use uuid
         let userId = data[0].uuid
 
         res.render('./overview', {
-          uuid: userId,
-          studentName: req.query.studentName
+          uuid: userId
         })
       }
     }
   })
 })
-
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening at: http://localhost:${port}`)
