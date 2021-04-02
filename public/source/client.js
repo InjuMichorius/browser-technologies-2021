@@ -13,5 +13,3 @@ function imgDisp() {
 }
 
 imgDisp()
-
-console.log('Hello world!')

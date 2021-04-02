@@ -138,5 +138,41 @@ input[type="submit"] {
     justify-content: space-between;
     width: 60%;
 }
-
-
+p {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+a {
+    font-size: 3rem;
+    color: white;
+    text-decoration: none;
+    transition: color 1.3s ease-in-out;
+    -moz-transition: color 1.3s ease-in-out;
+    background-color: var(--primary);
+    padding: 2rem;
+}
+  
+a:hover {
+    -webkit-animation: rainbow 4.5s infinite;
+    animation: rainbow 4.5s infinite;
+}
+  
+@-webkit-keyframes rainbow {
+    0%, 100% { color: #7ccdea; }
+    16%      { color: #0074d9; }
+    32%      { color: #2ecc40; }
+    48%      { color: #ffdc00; }
+    64%      { color: #b10dc9; }
+    80%      { color: #ff4136; }
+}
+@keyframes rainbow {
+    0%, 100% { color: #7ccdea; }
+    16%      { color: #0074d9; }
+    32%      { color: #2ecc40; }
+    48%      { color: #ffdc00; }
+    64%      { color: #b10dc9; }
+    80%      { color: #ff4136; }
+}

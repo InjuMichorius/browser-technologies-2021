@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const account = require('./public/source/routes/account.js')
 const mongoose = require('mongoose')
+const path = require('path')
 
 //Config our .env file
 require('dotenv').config()
@@ -100,7 +101,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', (req, res) => {
-  res.render('account', {
+  res.render('succes', {
     uuid: uuidv4().toString()
   })
 });

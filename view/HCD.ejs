@@ -7,33 +7,60 @@
 </head>
 
 <body>
-    <form id="wafs" action="/send-HCD/<%- uuid %>">
-        <fieldset>
-            <legend>From which teachers did you get <b>Human Centred Design</b>?</legend>
-            <input type="checkbox" name="teacher" id="koop">
-            <label for="koop">Koop</label>
-            <input type="checkbox" name="teacher" id="koch">
-            <label for="koch">Koch</label>
-            <input type="checkbox" name="teacher" id="duncan">
-            <label for="duncan">Duncan</label>
-            <input type="checkbox" name="teacher" id="robin">
-            <label for="robin">Robin</label>
+    <main>
+        <form id="hcd" action="/send-HCD/<%- uuid %>">
+            <fieldset class="checkbox-area">
+                <legend>From which teachers did you get <b>Human Centred Design</b>?</legend>
 
-            <label for="startDate">Start date</label>
-            <input type="date" id="startDate" required>
-            <label for="endDate">End date</label>
-            <input type="date" id="endDate" required>
+                <label for="koop" class="teachers">Koop Reynders
+                    <input type="checkbox" name="teacher" id="koop">
+                    <span class="checkmark"></span>
+                </label>
 
-            <label for="lessonMarterial">Lesson material (how hard was it?)</label>
-            <input type="number" id="lessonMarterial" min="1" max="10" required>
-            <label for="explanation">Explanation (how clearly is it explained?)</label>
-            <input type="number" id="explanation" min="1" max="10" required>
-            <label for="ownInsight">Own insight (How well do you get it?)</label>
-            <input type="number" id="ownInsight" min="1" max="10" required>
+                <label for="joost" class="teachers">Joost Faber
+                    <input type="checkbox" name="teacher" id="joost">
+                    <span class="checkmark"></span>
+                </label>
 
-            <input type="submit" form="wafs">
-        </fieldset>
-    </form>
+                <label for="koch" class="teachers">Peter Paul Koch
+                    <input type="checkbox" name="teacher" id="koch">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label for="sanne" class="teachers">Sanne 't Hooft
+                    <input type="checkbox" name="teacher" id="sanne">
+                    <span class="checkmark"></span>
+                </label>
+
+            </fieldset>
+            <fieldset class="course">
+                <legend>In what period did you follow this course?</legend>
+                <label for="startDate">Start date</label>
+                <input type="date" name="startDate" id="startDate"
+                    title="The first day the student has taken the courses" required>
+                <label for="endDate">End date</label>
+                <input type="date" name="endDate" id="endDate" title="The last day the student has taken the courses"
+                    required>
+            </fieldset>
+            <fieldset class="course">
+                <legend>Rate the course on a scale from 1 to 10</legend>
+                <label for="lessonMarterial" class="rating">Lesson material (how hard was it?)</label>
+                <input type="number" id="lessonMaterial" name="lessonMaterial" placeholder="1-10" min="1" max="10"
+                    title="How hard was the lesson material?" required>
+                <br>
+                <label for="explanation">Explanation (how clearly is it explained?)</label>
+                <input type="number" id="explanation" name="explanation" placeholder="1-10" min="1" max="10"
+                    title="How clearly was the teacher material explained?" required>
+                <br>
+                <label for="ownInsight">Own insight (How well do you get it?)</label>
+                <input type="number" id="ownInsight" name="ownInsight" placeholder="1-10" min="1" max="10"
+                    title="How well did you get the teaching material?" required>
+                
+            </fieldset>
+
+            <input type="submit" form="hcd">
+        </form>
+    </main>
 </body>
 
 </html>
