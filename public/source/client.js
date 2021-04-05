@@ -15,9 +15,19 @@
 // imgDisp()
 
 const lessonMaterial = document.getElementById('lessonMaterial')
+const explanation = document.getElementById('explanation')
+const ownInsight = document.getElementById('ownInsight')
 
 lessonMaterial.onkeyup = function() {
     localStorage.setItem("lessonMaterial", lessonMaterial.value)
 }
+explanation.onkeyup = function() {
+    localStorage.setItem("explanation", explanation.value)
+}
+ownInsight.onkeyup = function() {
+    localStorage.setItem("ownInsight", ownInsight.value)
+}
 
 lessonMaterial.value = localStorage.getItem("lessonMaterial")
+explanation.value = localStorage.getItem("explanation")
+ownInsight.value = localStorage.getItem("ownInsight")

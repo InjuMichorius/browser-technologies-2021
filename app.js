@@ -151,6 +151,7 @@ app.get('/send-WAFS/:uuid', (req, res) => {
   })
 })
 
+let user = "user"
 
 app.get('/send-account/:uuid', (req, res) => {
   //Checks if user input matches DB
@@ -168,6 +169,8 @@ app.get('/send-account/:uuid', (req, res) => {
           studentNumber: req.query.studentNumber
         };
 
+        user = student.studentName
+
         const data = new Student(student)
         data.save();
 
@@ -179,7 +182,6 @@ app.get('/send-account/:uuid', (req, res) => {
       } else {
       //User exists, change generated UUID to use uuid
       let userId = data[0].uuid
-
       res.render('./overview', {
         uuid: userId
       })
@@ -187,7 +189,7 @@ app.get('/send-account/:uuid', (req, res) => {
   }
   })
 })
-
+console.log(user)
 
 
 
