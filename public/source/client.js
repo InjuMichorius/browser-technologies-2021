@@ -13,3 +13,11 @@
 // }
 
 // imgDisp()
+
+const lessonMaterial = document.getElementById('lessonMaterial')
+
+lessonMaterial.onkeyup = function() {
+    localStorage.setItem("lessonMaterial", lessonMaterial.value)
+}
+
+lessonMaterial.value = localStorage.getItem("lessonMaterial")

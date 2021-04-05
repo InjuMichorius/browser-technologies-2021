@@ -161,37 +161,30 @@ app.get('/send-account/:uuid', (req, res) => {
     } else {
       //If the user doesn't exist, it returns an empty array.
       if (data.length === 0) {
-        console.log('No match')
+        console.log('No match, creating new user')
+        const student = {
+          uuid: req.params.uuid,
+          studentName: req.query.studentName,
+          studentNumber: req.query.studentNumber
+        };
 
-        // app.get('/send-account/:uuid', (req, res) => {
-        //   try {
-        //     const student = {
-        //       uuid: req.params.uuid,
-        //       studentName: req.query.studentName,
-        //       studentNumber: req.query.studentNumber
-        //     };
+        const data = new Student(student)
+        data.save();
 
-        //     const data = new Student(student)
-        //     data.save();
-
-
-        //     res.render('./WAFS', {
-        //       uuid: req.params.uuid
-        //     })
-        //   } catch (err) {
-        //     console.log(err);
-        //   }
-        // });
-
-      } else {
-        //User exists, change generated UUID to use uuid
-        let userId = data[0].uuid
 
         res.render('./overview', {
-          uuid: userId
+          uuid: req.params.uuid
         })
-      }
+
+      } else {
+      //User exists, change generated UUID to use uuid
+      let userId = data[0].uuid
+
+      res.render('./overview', {
+        uuid: userId
+      })
     }
+  }
   })
 })
 
