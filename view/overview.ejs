@@ -17,8 +17,14 @@
         </p>
         <h2>Empty enquetes</h2>
         <a href="/WAFS/<%- uuid %>"><%- empty %></a>
+        <% empty.forEach(function(course) { %>
+            <p><%= course %></p>
+            <% }) %>
         <h2>Filled in enquetes</h2>
         <a href="/WAFS/<%- uuid %>"><%- filled %></a>
+        <% filled.forEach(function(course) { %>
+            <p><%= course %></p>
+            <% }) %>
     </main>
 </body>
 
