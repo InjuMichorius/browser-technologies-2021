@@ -11,8 +11,15 @@
         <a href="hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
     </header>
     <main>
-        <h1>Welcome <%- user %>!</h1>
-        <a href="/WAFS/<%- uuid %>">WAFS</a>
+        <h1>School subjects</h1>
+        <p>In this survey we want to know how you experienced the courses. What went well and where can we improve? The
+            survey consists of 6 subjects, each containing 3 questions.
+        </p>
+        <h2>Empty enquetes</h2>
+        <a href="/WAFS/<%- uuid %>"><%- empty %></a>
+        <h2>Filled in enquetes</h2>
+        <a href="/WAFS/<%- uuid %>"><%- filled %></a>
     </main>
 </body>
+
 </html>

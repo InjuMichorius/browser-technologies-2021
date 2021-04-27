@@ -14,17 +14,30 @@
 
 // imgDisp()
 
+const startDate = document.getElementById('startDate')
+const endDate = document.getElementById('endDate')
+
 const lessonMaterial = document.getElementById('lessonMaterial')
 const explanation = document.getElementById('explanation')
 const ownInsight = document.getElementById('ownInsight')
 
-lessonMaterial.onkeyup = function() {
+console.log(startDate.value);
+
+startDate.onselect = function() {
+    localStorage.setItem("startDate", startDate.value)
+}
+
+endDate.onchange = function() {
+    console.log('hello world');
+}
+
+lessonMaterial.onchange = function() {
     localStorage.setItem("lessonMaterial", lessonMaterial.value)
 }
-explanation.onkeyup = function() {
+explanation.onchange = function() {
     localStorage.setItem("explanation", explanation.value)
 }
-ownInsight.onkeyup = function() {
+ownInsight.onchange = function() {
     localStorage.setItem("ownInsight", ownInsight.value)
 }
 

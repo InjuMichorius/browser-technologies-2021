@@ -5,6 +5,7 @@ const account = require('./public/source/routes/account.js')
 const mongoose = require('mongoose')
 const path = require('path');
 const { Db } = require('mongodb');
+const { render } = require('ejs');
 
 //Config our .env file
 require('dotenv').config()
@@ -40,6 +41,21 @@ const WAFS = mongoose.model('WAFS', WAFSDataSchema);
 const app = express()
 const port = 3000
 
+let emptyEnquete = []
+let filledEnquete = []
+
+function removeA(arr) {
+  var what, a = arguments, L = a.length, ax;
+  while (L > 1 && arr.length) {
+      what = a[--L];
+      while ((ax= arr.indexOf(what)) !== -1) {
+          arr.splice(ax, 1);
+      }
+  }
+  return arr;
+}
+
+
 //Identifying default path
 app.use(express.static(__dirname + '/public/'));
 
@@ -52,6 +68,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('/', (req, res) => {
+
   res.render('account', {
     uuid: uuidv4().toString()
   })
@@ -147,7 +164,8 @@ app.get('/send-WAFS/:uuid', (req, res) => {
     }
   })
   res.render('./overview', {
-    uuid: req.params.uuid
+    uuid: req.params.uuid,
+    empty: emptyEnquete
   })
 })
 
@@ -173,25 +191,48 @@ app.get('/send-account/:uuid', (req, res) => {
 
         const data = new Student(student)
         data.save();
-
-
-        res.render('./overview', {
-          uuid: req.params.uuid
-        })
-
-      } else {
-      //User exists, change generated UUID to use uuid
+      }
+      //If user exists, change generated UUID to user's uuid
       let userId = data[0].uuid
-      res.render('./overview', {
-        uuid: userId
+
+      //Finds WAFS enquete user
+      WAFS.find({ uuid: userId }, (error, data) => {
+        if (error) {
+          console.log(error);
+        } else {
+          //User has filled in the enquete
+          if (data.length > 0) {
+            //Check if array already contains WAFS
+            if(filledEnquete.includes("WAFS") === false){
+              removeA(emptyEnquete, "WAFS")
+              filledEnquete.push("WAFS")
+            }
+            render()
+
+          //User has not filled in enquete
+          } else {
+            //Check if array already contains WAFS
+            if(emptyEnquete.includes("WAFS") === false){
+              console.log(filledEnquete)
+              removeA(filledEnquete, "WAFS")
+              console.log(filledEnquete)
+              emptyEnquete.push("WAFS")
+            }
+            render()
+          }
+        }
       })
+
+      function render() {
+        res.render('./overview', {
+          uuid: userId,
+          empty: emptyEnquete,
+          filled: filledEnquete
+        })
+      }
     }
-  }
   })
 })
-console.log(user)
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening at: http://localhost:${port}`)
