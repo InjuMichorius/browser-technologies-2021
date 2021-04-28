@@ -16,14 +16,12 @@
             survey consists of 6 subjects, each containing 3 questions.
         </p>
         <h2>Empty enquetes</h2>
-        <a href="/WAFS/<%- uuid %>"><%- empty %></a>
         <% empty.forEach(function(course) { %>
-            <p><%= course %></p>
+            <a href="/<%- course %>/<%- uuid %>"><%= course %></a>
             <% }) %>
         <h2>Filled in enquetes</h2>
-        <a href="/WAFS/<%- uuid %>"><%- filled %></a>
         <% filled.forEach(function(course) { %>
-            <p><%= course %></p>
+            <a href="/<%- course %>/<%- uuid %>"><%= course %></a>
             <% }) %>
     </main>
 </body>

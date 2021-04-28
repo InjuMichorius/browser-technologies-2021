@@ -9,38 +9,37 @@
 <body>
     <main>
         <form id="cssttr" action="/send-CSSTTR/<%- uuid %>">
-            <fieldset>
-                <legend>From which teachers did you get <b>CSS to the rescue</b>?</legend>
-                <input list="teacher" type="text" id="teachers" autocomplete="off" required>
-                <datalist id="teacher">
-                    <option value="Sanne 't Hooft">R2D2</option>
-                    <option value="Vasilis van Gemert">Squid</option>
-                </datalist>
-            </fieldset>
+            <fieldset class="checkbox-area">
+                <legend>From which teachers did you get <b>CSS to the Rescue</b>?</legend>
 
+                <label for="sanne">Sanne 't Hooft</label>
+                <input type="radio" id="sanne" name="teacher" value="Sanne 't Hooft" required>
+                <label for="vasilis">Vasilis van Gemert</label>
+                <input type="radio" id="vasilis" name="teacher" value="Vasilis van Gemert">
+            </fieldset>
             <fieldset class="course">
                 <legend>In what period did you follow this course?</legend>
                 <label for="startDate">Start date</label>
                 <input type="date" name="startDate" id="startDate"
-                    title="The first day the student has taken the courses" required>
+                    title="The first day the student has taken the courses" value="<%- startDate %>" required>
                 <label for="endDate">End date</label>
-                <input type="date" name="endDate" id="endDate" title="The last day the student has taken the courses"
+                <input type="date" name="endDate" id="endDate" title="The last day the student has taken the courses" value="<%- endDate %>"
                     required>
             </fieldset>
-
             <fieldset class="course">
                 <legend>Rate the course on a scale from 1 to 10</legend>
                 <label for="lessonMarterial" class="rating">Lesson material (how hard was it?)</label>
                 <input type="number" id="lessonMaterial" name="lessonMaterial" placeholder="1-10" min="1" max="10"
-                    title="How hard was the lesson material?" required>
+                    title="How hard was the lesson material?" value="<%- lessonMaterial %>" required>
                 <br>
                 <label for="explanation">Explanation (how clearly is it explained?)</label>
                 <input type="number" id="explanation" name="explanation" placeholder="1-10" min="1" max="10"
-                    title="How clearly was the teacher material explained?" required>
+                    title="How clearly was the teacher material explained?" value="<%- explanation %>" required>
                 <br>
                 <label for="ownInsight">Own insight (How well do you get it?)</label>
                 <input type="number" id="ownInsight" name="ownInsight" placeholder="1-10" min="1" max="10"
-                    title="How well did you get the teaching material?" required>
+                    title="How well did you get the teaching material?" value="<%- ownInsight %>" required>
+                
             </fieldset>
 
             <input type="submit" form="cssttr">
