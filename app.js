@@ -54,7 +54,7 @@ const CSSTTR = mongoose.model('CSSTTR', CSSTTRDataSchema);
 const app = express()
 const port = 3000
 
-let emptyEnquete = []
+let emptyEnquete = ["WAFS", "CSSTTR", "PWA", "BT", "HCD", "RTW"]
 let filledEnquete = []
 
 //Function removes one item from array
@@ -377,10 +377,8 @@ app.get('/send-account/:uuid', (req, res) => {
         })
       }
 
-      const enquetes = [WAFS]
-
       //Finds WAFS enquete user
-      enquetes[0].find({ uuid: userId }, (error, data) => {
+      WAFS.find({ uuid: userId }, (error, data) => {
         if (error) {
           console.log(error);
         } else {
