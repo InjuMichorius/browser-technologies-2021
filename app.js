@@ -313,6 +313,7 @@ app.get('/send-WAFS/:uuid', (req, res) => {
       filled: filledEnquete
     })
   }
+  let userId = req.params.uuid
 
   //Finds WAFS enquete user
   WAFS.find({ uuid: userId }, (error, data) => {
@@ -369,6 +370,7 @@ app.get('/send-account/:uuid', (req, res) => {
       //If user exists, change generated UUID to user's uuid
       let userId = data[0].uuid
 
+      Ren
       function renderOverview() {
         res.render('./overview', {
           uuid: userId,
@@ -377,33 +379,26 @@ app.get('/send-account/:uuid', (req, res) => {
         })
       }
 
-      //Finds WAFS enquete user
-      WAFS.find({ uuid: userId }, (error, data) => {
-        if (error) {
-          console.log(error);
-        } else {
-          //User has filled in the enquete
-          if (data.length > 0) {
-            //Check if array already contains WAFS
-            if (filledEnquete.includes("WAFS") === false) {
-              removeA(emptyEnquete, "WAFS")
-              filledEnquete.push("WAFS")
-            }
-            renderOverview()
+      function checkEnquete(error, data, enquete) {
+        if (error) throw error
+        //User has filled in the enquete
+        else if (data.length > 0 && !filledEnquete.includes(enquete)) {
+          //Check if array already contains WAFS
+          removeA(emptyEnquete, enquete)
+          filledEnquete.push(enquete)
 
-            //User has not filled in enquete
-          } else {
-            //Check if array already contains WAFS
-            if (emptyEnquete.includes("WAFS") === false) {
-              console.log(filledEnquete)
-              removeA(filledEnquete, "WAFS")
-              console.log(filledEnquete)
-              emptyEnquete.push("WAFS")
-            }
-            renderOverview()
-          }
+          //User has not filled in enquete
+        } else if (!emptyEnquete.includes(enquete)) {
+          //Check if array already contains WAFS
+
+          removeA(filledEnquete, enquete)
+          emptyEnquete.push(enquete)
         }
-      })
+      }
+
+      //Finds WAFS enquete user
+      WAFS.find({ uuid: userId }, (error, data) => checkEnquete(error, data, "WAFS"))
+      CSSTTR.find({ uuid: userId }, (error, data) => checkEnquete(error, data, "CSSTTR"))
     }
   })
 })

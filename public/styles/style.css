@@ -19,3 +19,22 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+main {
+    background-color: white;
+    margin: auto;
+    width: 80%;
+}
+
+form {
+    width: 90%;
+    height: 50%;
+}
+
+fieldset {
+    border: none;
+}
+
+legend {
+    display: none;
+}
+
