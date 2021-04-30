@@ -15,7 +15,7 @@ ReadEar is a school project I made, allowing blind people to "read" again. The p
 5. [Packages](https://github.com/InjuMichorius/ReadEar#packages-used-)
 
 # Goal 💪🏻
-> Ik wil een enquête kunnen invullen over de minor Web Development, met verschillende antwoordmogelijkheden. Als ik de enquête niet afkrijg, wil ik later weer verder gaan met waar ik ben gebleven.
+> I want to be able to fill in a survey about the minor Web Development, with various answer options. If I don't finish the survey, I want to pick up where I left off later. (translate)
 
 The goal of HvA enquete is to provide the HvA with data about their students. The information will be send to a correctly structured database, where the HvA admin can look at the results.
 The goal of ReadEar is to provide it's users with an accessible interface, so they can easily listen to mp3 files. By creating this project im hoping to learn how to make the web a more accessible place!
