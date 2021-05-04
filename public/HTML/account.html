@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/hvaLogo.png" type="image/png" sizes="16x16">
+    <title>HvA | Account</title>
+</head>
+
+<body>
+    <header>
+        <a href="hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+    </header>
+    <main>
+        <h1>HvA Enquete</h1>
+        <p>In this survey we want to know how you experienced the courses. What went well
+            and where can we improve? The survey consists of 6 subjects, each containing 3 questions.
+        </p>
+
+        <form action="/send-account/<%- uuid %>" id="student">
+            <fieldset class="account-fieldset">
+                <legend class="account-legend">What is your name?</legend>
+                <input type="text" id="studentName" name="studentName" placeholder="John"
+                    title="First name of the student, matches the student number" pattern="[A-Za-z]{30}" required>
+                <label for="studentName" class="label-name">
+                    <span class="input-name">Student name</span>
+                </label>
+            </fieldset>
+
+            <fieldset class="account-fieldset">
+                <legend class="account-legend">What is your student number?</legend>
+                <input type="text" id="studentNumber" name="studentNumber" placeholder="500804843"
+                    title="Student number must be a number between 500000000 and 600000000" pattern="[0-9]{9}" required>
+                <label for="studentNumber" class="label-name">
+                    <span class="input-name">Student number</span>
+                </label>
+            </fieldset>
+            <input type="submit" form="student">
+        </form>
+    </main>
+</body>
+
+</html>

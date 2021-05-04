@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/hvaLogo.png" type="image/png" sizes="16x16">
+    <title>HvA | </title>
+</head>
+
+<body>
+    <header>
+        <a href="hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+    </header>
+    <main>
+        <h1>School subjects</h1>
+        <p>In this survey we want to know how you experienced the courses. What went well and where can we improve? The
+            survey consists of 6 subjects, each containing 3 questions.
+        </p>
+        <h2>Empty enquetes</h2>
+        <% empty.forEach(function(course) { %>
+            <a href="/<%- course %>/<%- uuid %>">
+                <%= course %>
+            </a>
+            <% }) %>
+                <h2>Filled in enquetes</h2>
+                <% filled.forEach(function(course) { %>
+                    <a href="/<%- course %>/<%- uuid %>">
+                        <%= course %>
+                    </a>
+                    <% }) %>
+    </main>
+</body>
+
+</html>

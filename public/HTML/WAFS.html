@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/img/hvaLogo.png" type="image/png" sizes="16x16">
+    <title>HvA | WAFS</title>
+</head>
+
+<body>
+    <main>
+        <form id="wafs" action="/send-WAFS/<%- uuid %>">
+            <fieldset class="checkbox-area">
+                <legend>From which teachers did you get <b>Web App from Scratch</b>?</legend>
+
+                <label for="joost">Joost Faber</label>
+                <input type="radio" id="joost" name="teacher" value="Joost Faber" required>
+                <label for="wouter">Wouter van der Heijde</label>
+                <input type="radio" id="wouter" name="teacher" value="Wouter">
+                <label for="suus">Suus</label>
+                <input type="radio" id="suus" name="teacher" value="Suus">
+                <label for="robin">Robin Fugte</label>
+                <input type="radio" id="robin" name="teacher" value="Robin Fugte">
+            </fieldset>
+            <fieldset class="course">
+                <legend>In what period did you follow this course?</legend>
+                <label for="startDate">Start date</label>
+                <input type="date" name="startDate" id="startDate"
+                    title="The first day the student has taken the courses" value="<%- startDate %>" required>
+                <label for="endDate">End date</label>
+                <input type="date" name="endDate" id="endDate" title="The last day the student has taken the courses"
+                    value="<%- endDate %>" required>
+            </fieldset>
+            <fieldset class="course">
+                <legend>Rate the course on a scale from 1 to 10</legend>
+                <label for="lessonMarterial" class="rating">Lesson material (how hard was it?)</label>
+                <input type="number" id="lessonMaterial" name="lessonMaterial" placeholder="1-10" min="1" max="10"
+                    title="How hard was the lesson material?" value="<%- lessonMaterial %>" required>
+                <br>
+                <label for="explanation">Explanation (how clearly is it explained?)</label>
+                <input type="number" id="explanation" name="explanation" placeholder="1-10" min="1" max="10"
+                    title="How clearly was the teacher material explained?" value="<%- explanation %>" required>
+                <br>
+                <label for="ownInsight">Own insight (How well do you get it?)</label>
+                <input type="number" id="ownInsight" name="ownInsight" placeholder="1-10" min="1" max="10"
+                    title="How well did you get the teaching material?" value="<%- ownInsight %>" required>
+
+            </fieldset>
+
+            <input type="submit" form="wafs">
+        </form>
+    </main>
+</body>
+
+</html>
