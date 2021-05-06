@@ -8,7 +8,7 @@
 
 <body>
     <header>
-        <a href="hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+        <a href="hva.nl"><img src="/static/img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
     </header>
     <main>
         <h1>School subjects</h1>
@@ -16,12 +16,12 @@
             survey consists of 6 subjects, each containing 3 questions.
         </p>
         <h2>Empty enquetes</h2>
-        <% empty.forEach(function(course) { %>
-            <a href="/<%- course %>/<%- uuid %>"><%= course %></a>
+        <% emptySurveys.forEach(function(course) { %>
+            <a href="/survey/<%- user.uuid %>/<%- course %>"><%= course %></a>
             <% }) %>
         <h2>Filled in enquetes</h2>
-        <% filled.forEach(function(course) { %>
-            <a href="/<%- course %>/<%- uuid %>"><%= course %></a>
+        <% filledSurveys.forEach(function(course) { %>
+            <a href="/survey/<%- user.uuid %>/<%- course %>"><%= course %></a>
             <% }) %>
     </main>
 </body>

@@ -1,408 +1,194 @@
-const { v4: uuidv4 } = require('uuid');
 const express = require('express')
-const bodyParser = require('body-parser')
-const account = require('./public/source/routes/account.js')
 const mongoose = require('mongoose')
-const path = require('path');
-const { Db } = require('mongodb');
-const { render } = require('ejs');
-
+const { v4: uuidV4 } = require('uuid');
 //Config our .env file
 require('dotenv').config()
 
-//Connect to database
+
+// Database
+
+// Local Dev Thijs
+// const production = process.NODE_ENV === 'production'
+// const address = process.env.DB_ADDRESS
+// const uri = production ? `mongodb+srv://${address}` : `mongodb://${address}:${process.env.DB_PORT}`
+
+// const options = {
+// 	useNewUrlParser: true,
+// 	useUnifiedTopology: true,
+// 	useFindAndModify: false,
+// 	useCreateIndex: true,
+// 	auth: {
+// 		authSource: 'admin'
+// 	},
+// 	dbName: process.env.DB_NAME,
+// 	user: process.env.DB_USERNAME,
+// 	pass: process.env.DB_PASSWORD
+// }
+
+// mongoose.connect(uri, options);
+
 const url = 'mongodb+srv://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@cluster0.zlqtj.mongodb.net/enquetes?retryWrites=true&w=majority'
-
-// verhuizen naar een mongoose service
-mongoose.set('useNewUrlParser', true)
-mongoose.set('useUnifiedTopology', true)
-mongoose.connect(url);
-const Schema = mongoose.Schema;
-
+mongoose.connect(url, {'useNewUrlParser': true, 'useUnifiedTopology': true});
 
 //Schemas
-const StudentDataSchema = new Schema({
-  uuid: { type: String, required: true },
+const Schema = mongoose.Schema
+
+const surveySchema = new Schema({
+  subject: { type: String, required: true, enum: ["WAFS", "CSSTTR", "PWA", "BT", "HCD", "RTW"]},
+  teacher: { type: String, required: true },
+  startDate: { type: String, required: true },
+  endDate: { type: String, required: true },
+  lessonMaterial: { type: String, required: true },
+  explanation: { type: String, required: true },
+  ownInsight: { type: String, required: true }
+});
+
+const studentSchema = new Schema({
+  uuid: { type: String, required: true, index: true },
   studentName: { type: String, required: true },
   studentNumber: { type: String, required: true },
-}, { collection: 'Student' });
+  surveys: [surveySchema]
+});
 
-const WAFSDataSchema = new Schema({
-  uuid: { type: String, required: true },
-  teacher: { type: String, required: true },
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true },
-  explanation: { type: String, required: true },
-  ownInsight: { type: String, required: true }
-}, { collection: 'WAFS' });
+studentSchema.virtual('filledSurveys').get(function() {
+  return this.surveys.map((survey) => survey.subject)
+})
 
-const CSSTTRDataSchema = new Schema({
-  uuid: { type: String, required: true },
-  teacher: { type: String, required: true },
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
-  lessonMaterial: { type: String, required: true },
-  explanation: { type: String, required: true },
-  ownInsight: { type: String, required: true }
-}, { collection: 'CSSTTR' });
+studentSchema.virtual('emptySurveys').get(function() {
+  const student = this
+  return ["WAFS", "CSSTTR", "PWA", "BT", "HCD", "RTW"].filter((subject) => !student.filledSurveys.includes(subject))
+})
 
-const Student = mongoose.model('Student', StudentDataSchema);
-const WAFS = mongoose.model('WAFS', WAFSDataSchema);
-const CSSTTR = mongoose.model('CSSTTR', CSSTTRDataSchema);
+const Student = mongoose.model('Student', studentSchema)
 
+
+// Express
 const app = express()
-const port = 3000
 
-let emptyEnquete = ["WAFS", "CSSTTR", "PWA", "BT", "HCD", "RTW"]
-let filledEnquete = []
+  // Settings
+    //Templating engine
+app.set('views', 'view').set('view engine', 'ejs')
+  // bodyparser
+app.use(express.urlencoded({extended: true}))
 
-//Function removes one item from array
-function removeA(arr) {
-  var what, a = arguments, L = a.length, ax;
-  while (L > 1 && arr.length) {
-    what = a[--L];
-    while ((ax = arr.indexOf(what)) !== -1) {
-      arr.splice(ax, 1);
-    }
-  }
-  return arr;
+  // Routes
+app
+  .use('/static', express.static(__dirname + '/public/')) 
+  .get('/', (req, res) => res.render('account'))
+  .post('/', loginUser)
+  .get('/survey/:uuid', renderOverview)
+  .get('/survey/:uuid/:subject', renderSurvey)
+  .post('/survey/:uuid/:subject', saveSurvey)
+  .use((req, res) => res.status(404).send('not found'))
+  .use((error, req, res) => {
+    console.error(error)
+    res.status(500).send(error)
+  })
+
+// Starting the server
+const port = process.env.PORT || 0
+const server = app.listen(port, () => {
+  console.log(`Listening at: http://localhost:${server.address().port}`)
+})
+
+
+// Route handlers
+function loginUser(req, res, next) {
+  const { studentName, studentNumber } = req.body
+
+  return findUserByStudentNameNumber(studentName, studentNumber)
+    .then((user) => {
+      if(!user) {
+        const newUser = new Student({uuid: uuidV4().toString(), studentName, studentNumber})
+        newUser.save().then((user) => res.redirect(`/survey/${user.uuid}`))
+      } else res.redirect(`/survey/${user.uuid}`)
+    })
+    .catch(error => next(error))
 }
 
-//Identifying default path
-app.use(express.static(__dirname + '/public/'));
 
-//Templating engine
-app.set('views', 'view')
-app.set('view engine', 'ejs')
+function renderOverview(req, res, next) {
+  const { uuid } = req.params
 
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
+  return findUserByUUID(uuid)
+    .then(userDocument => res.render('overview', { user: userDocument.toObject(), filledSurveys: userDocument.filledSurveys, emptySurveys: userDocument.emptySurveys }))
+    .catch(error => next(error)) 
+}
 
-//Routes
-app.get('/', (req, res) => {
+function renderSurvey(req, res, next) {
+  const { uuid, subject } = req.params
 
-  res.render('account', {
-    uuid: uuidv4().toString()
-  })
-});
-
-app.get('/WAFS/:uuid', (req, res) => {
-
-  WAFS.find({ uuid: req.params.uuid }, (err, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      if (data.length === 0) {
-        console.log('User has no form data')
-
-        const emptyFormData = {
-          uuid: req.params.uuid,
-          teacher: ' ',
-          startDate: ' ',
-          endDate: ' ',
-          lessonMaterial: ' ',
-          explanation: ' ',
-          ownInsight: ' '
-        }
-
-        res.render('WAFS', emptyFormData)
-      } else {
-        const formData = {
-          uuid: req.params.uuid,
-          teacher: data[0].teacher,
-          startDate: data[0].startDate,
-          endDate: data[0].endDate,
-          lessonMaterial: data[0].lessonMaterial,
-          explanation: data[0].explanation,
-          ownInsight: data[0].ownInsight
-        }
-        res.render('WAFS', formData)
+  return findUserByUUID(uuid)
+    .then((userDocument) => {
+      const emptyFormData = {
+        teacher: ' ',
+        startDate: ' ',
+        endDate: ' ',
+        lessonMaterial: ' ',
+        explanation: ' ',
+        ownInsight: ' '
       }
-    }
-  })
-});
+      
+      const formData= userDocument.surveys.find((survey) => subject === survey.subject) || emptyFormData
 
-app.get('/CSSTTR/:uuid', (req, res) => {
-
-  CSSTTR.find({ uuid: req.params.uuid }, (err, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      if (data.length === 0) {
-        console.log('User has no form data')
-
-        const emptyFormData = {
-          uuid: req.params.uuid,
-          teacher: ' ',
-          startDate: ' ',
-          endDate: ' ',
-          lessonMaterial: ' ',
-          explanation: ' ',
-          ownInsight: ' '
-        }
-
-        res.render('CSSTTR', emptyFormData)
-      } else {
-        const formData = {
-          uuid: req.params.uuid,
-          teacher: data[0].teacher,
-          startDate: data[0].startDate,
-          endDate: data[0].endDate,
-          lessonMaterial: data[0].lessonMaterial,
-          explanation: data[0].explanation,
-          ownInsight: data[0].ownInsight
-        }
-        res.render('CSSTTR', formData)
-      }
-    }
-  })
-});
-
-app.get('/send-CSSTTR/:uuid', (req, res) => {
-  CSSTTR.find({ uuid: req.params.uuid }, (err, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      CSSTTR.findOne({ uuid: req.params.uuid }, function (err, foundObject) {
-        if (err) {
-          console.log(err)
-        } else {
-          if (!foundObject) {
-            //user has not filled in form
-            const cssttrRating = {
-              uuid: req.params.uuid,
-              teacher: req.query.teacher,
-              startDate: req.query.startDate,
-              endDate: req.query.endDate,
-              lessonMaterial: req.query.lessonMaterial,
-              explanation: req.query.explanation,
-              ownInsight: req.query.ownInsight,
-            }
-
-            const data = new CSSTTR(cssttrRating)
-            data.save();
-            console.log(data)
-          } else {
-            if (req.query.teacher) {
-              foundObject.teacher = req.query.teacher
-            }
-            if (req.query.startDate) {
-              foundObject.startDate = req.query.startDate
-            }
-            if (req.query.endDate) {
-              foundObject.endDate = req.query.endDate
-            }
-            if (req.query.lessonMaterial) {
-              foundObject.lessonMaterial = req.query.lessonMaterial
-            }
-            if (req.query.Explanation) {
-              foundObject.Explanation = req.query.Explanation
-            }
-            if (req.query.ownInsight) {
-              foundObject.ownInsight = req.query.ownInsight
-            }
-            foundObject.save(function (err, updatedObject) {
-              if (err) {
-                console.log(err)
-              }
-            })
-          }
-        }
-      })
-    }
-  })
-  let userId = req.params.uuid
-
-  function renderOverview() {
-    res.render('./overview', {
-      uuid: userId,
-      empty: emptyEnquete,
-      filled: filledEnquete
+      res.render(subject, {formData, user: userDocument.toObject()})
     })
-  }
+    .catch(error => next(error))
 
-  //Finds CSSTTR enquete user
-  CSSTTR.find({ uuid: userId }, (error, data) => {
-    if (error) {
-      console.log(error);
-    } else {
-      //User has filled in the enquete
-      if (data.length > 0) {
-        //Check if array already contains CSSTTR
-        if (filledEnquete.includes("CSSTTR") === false) {
-          removeA(emptyEnquete, "CSSTTR")
-          filledEnquete.push("CSSTTR")
+}
+
+function saveSurvey(req, res, next) {
+  const { uuid, subject } = req.params
+
+  return findUserByUUID(uuid)
+    .then(userDocument => {
+      const surveyIndex = userDocument.surveys.findIndex((survey) => survey.subject === subject )
+
+      if(surveyIndex >= 0) {
+        console.log('hello')
+        userDocument.surveys[surveyIndex] = {
+          subject: subject,
+          teacher: req.body.teacher,
+          startDate: req.body.startDate,
+          endDate: req.body.endDate,
+          lessonMaterial: req.body.lessonMaterial,
+          explanation: req.body.explanation,
+          ownInsight: req.body.ownInsight
         }
-        renderOverview()
-
-        //User has not filled in enquete
       } else {
-        //Check if array already contains CSSTTR
-        if (emptyEnquete.includes("CSSTTR") === false) {
-          console.log(filledEnquete)
-          removeA(filledEnquete, "CSSTTR")
-          console.log(filledEnquete)
-          emptyEnquete.push("CSSTTR")
-        }
-        renderOverview()
-
-      }
-    }
-  })
-})
-
-app.get('/send-WAFS/:uuid', (req, res) => {
-  WAFS.find({ uuid: req.params.uuid }, (err, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      WAFS.findOne({ uuid: req.params.uuid }, function (err, foundObject) {
-        if (err) {
-          console.log(err)
-        } else {
-          if (!foundObject) {
-            //user has not filled in form
-            const wafsRating = {
-              uuid: req.params.uuid,
-              teacher: req.query.teacher,
-              startDate: req.query.startDate,
-              endDate: req.query.endDate,
-              lessonMaterial: req.query.lessonMaterial,
-              explanation: req.query.explanation,
-              ownInsight: req.query.ownInsight,
-            }
-
-            const data = new WAFS(wafsRating)
-            data.save();
-            console.log(data)
-          } else {
-            if (req.query.teacher) {
-              foundObject.teacher = req.query.teacher
-            }
-            if (req.query.startDate) {
-              foundObject.startDate = req.query.startDate
-            }
-            if (req.query.endDate) {
-              foundObject.endDate = req.query.endDate
-            }
-            if (req.query.lessonMaterial) {
-              foundObject.lessonMaterial = req.query.lessonMaterial
-            }
-            if (req.query.Explanation) {
-              foundObject.Explanation = req.query.Explanation
-            }
-            if (req.query.ownInsight) {
-              foundObject.ownInsight = req.query.ownInsight
-            }
-            foundObject.save(function (err, updatedObject) {
-              if (err) {
-                console.log(err)
-              }
-            })
-          }
-        }
-      })
-    }
-  })
-  function renderOverview() {
-    res.render('./overview', {
-      uuid: userId,
-      empty: emptyEnquete,
-      filled: filledEnquete
-    })
-  }
-  let userId = req.params.uuid
-
-  //Finds WAFS enquete user
-  WAFS.find({ uuid: userId }, (error, data) => {
-    if (error) {
-      console.log(error);
-    } else {
-      //User has filled in the enquete
-      if (data.length > 0) {
-        //Check if array already contains WAFS
-        if (filledEnquete.includes("WAFS") === false) {
-          removeA(emptyEnquete, "WAFS")
-          filledEnquete.push("WAFS")
-        }
-        renderOverview()
-
-        //User has not filled in enquete
-      } else {
-        //Check if array already contains WAFS
-        if (emptyEnquete.includes("WAFS") === false) {
-          console.log(filledEnquete)
-          removeA(filledEnquete, "WAFS")
-          console.log(filledEnquete)
-          emptyEnquete.push("WAFS")
-        }
-        renderOverview()
-      }
-    }
-  })
-})
-
-let user = "user"
-
-app.get('/send-account/:uuid', (req, res) => {
-  //Checks if user input matches DB
-  Student.find({ studentName: req.query.studentName, studentNumber: req.query.studentNumber }, (err, data) => {
-    if (err) {
-      //Logging any errors occuring while searching
-      console.log(err)
-    } else {
-      //If the user doesn't exist, it returns an empty array.
-      if (data.length === 0) {
-        console.log('No match, creating new user')
-        const student = {
-          uuid: req.params.uuid,
-          studentName: req.query.studentName,
-          studentNumber: req.query.studentNumber
-        };
-
-        user = student.studentName
-
-        const data = new Student(student)
-        data.save();
-      }
-      //If user exists, change generated UUID to user's uuid
-      let userId = data[0].uuid
-
-      Ren
-      function renderOverview() {
-        res.render('./overview', {
-          uuid: userId,
-          empty: emptyEnquete,
-          filled: filledEnquete
+        const survey = userDocument.surveys.create({
+          subject: subject,
+          teacher: req.body.teacher,
+          startDate: req.body.startDate,
+          endDate: req.body.endDate,
+          lessonMaterial: req.body.lessonMaterial,
+          explanation: req.body.explanation,
+          ownInsight: req.body.ownInsight
         })
+
+        userDocument.surveys.push(survey)
       }
+      return userDocument.save()
+      
+    })
+    .then((userDocument) => {
+      res.redirect(`/survey/${userDocument.uuid}`)
+    })
+    .catch(error => next(error))
+}
 
-      function checkEnquete(error, data, enquete) {
-        if (error) throw error
-        //User has filled in the enquete
-        else if (data.length > 0 && !filledEnquete.includes(enquete)) {
-          //Check if array already contains WAFS
-          removeA(emptyEnquete, enquete)
-          filledEnquete.push(enquete)
-
-          //User has not filled in enquete
-        } else if (!emptyEnquete.includes(enquete)) {
-          //Check if array already contains WAFS
-
-          removeA(filledEnquete, enquete)
-          emptyEnquete.push(enquete)
-        }
-      }
-
-      //Finds WAFS enquete user
-      WAFS.find({ uuid: userId }, (error, data) => checkEnquete(error, data, "WAFS"))
-      CSSTTR.find({ uuid: userId }, (error, data) => checkEnquete(error, data, "CSSTTR"))
-    }
+// Utilities
+function findUserByStudentNameNumber(studentName, studentNumber) {
+  return Student.findOne({ studentName, studentNumber}, (error, data) => {
+    if(error) return Promise.reject(error)
+    else return Promise.resolve(data)
   })
-})
+}
 
-app.listen(port, () => {
-  console.log(`Example app listening at: http://localhost:${port}`)
-})
+function findUserByUUID(uuid) {
+  return Student.findOne({uuid}, (error, data) => {
+    if(error) return Promise.reject(error)
+    else if(!data) return Promise.reject(new Error(`No user with ${uuid} found`))
+    else return Promise.resolve(data)
+  })
+}

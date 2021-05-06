@@ -8,7 +8,7 @@
 
 <body>
     <header>
-        <a href="hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+        <a href="hva.nl"><img src="/static/img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
     </header>
     <main>
         <h1>HvA Enquete</h1>
@@ -16,7 +16,7 @@
             and where can we improve? The survey consists of 6 subjects, each containing 3 questions.
         </p>
         
-        <form action="/send-account/<%- uuid %>" id="student">
+        <form action="/" method="POST" id="student">
             <fieldset class="account-fieldset">
                 <legend class="account-legend">What is your name?</legend>
                 <input type="text" id="studentName" name="studentName" placeholder="John"
