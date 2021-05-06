@@ -7,7 +7,7 @@
 :root {
     --main-font: 'arial';
     --black: black;
-    --primary: #2C2A75;
+    --primary: #25167A;
 }
 
 html {
@@ -19,22 +19,82 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+::selection {
+    background-color: var(--primary);
+    color: white;
+}
+
+header a img {
+    float: right;
+    margin: 1rem;
+}
+
 main {
     background-color: white;
-    margin: auto;
-    width: 80%;
+    padding: 2rem;
+    width: 60%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
 }
 
-form {
-    width: 90%;
-    height: 50%;
+input::placeholder{
+    color: transparent;
 }
 
-fieldset {
+input[type="submit"] {
+    background-color: var(--primary);
+    color: white;
     border: none;
+    padding: 10px 30px;
+}
+
+input, label {
+    display: block;
+}
+
+label {
+    font-weight: bold;
+}
+
+.hint {
+    font-size: 14px;
 }
 
 legend {
     display: none;
 }
 
+fieldset {
+    border: none;
+    margin-bottom: 1rem;
+}
+
+h1, p {
+    margin-bottom: 1rem;
+}
+
+p {
+    max-width: 45rem;
+}
+
+form input[type="text"]:not(:focus):not(:placeholder-shown):invalid {
+	border: 3px solid red;
+}
+
+form input[type="text"]:not(:focus):not(:placeholder-shown):valid {
+	border: 3px solid green;
+}
+
+form:invalid input[type="submit"]#submit {
+    cursor: not-allowed;
+    background-color: #918ABC;
+}
+
+form:valid input[type="submit"]#submit {
+    cursor: pointer;
+    background-color: var(--primary);
+}
