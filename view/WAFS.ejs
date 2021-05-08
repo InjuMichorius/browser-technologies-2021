@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
+    <title>HvA | WAFS</title>
     <%- include('./components/head') %>
-        <title>HvA | WAFS</title>
 </head>
 
 <body>
     <header>
-        <a href="hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+        <a href="https://www.hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
     </header>
     <main>
         <h1>Web Apps from Scratch</h1>
@@ -32,19 +32,20 @@
 
             <fieldset class="course">
                 <legend>In what period did you follow this course?</legend>
-                <label for="startDate">Start date</label>
-                <input type="date" name="startDate" id="startDate"
-                    title="The first day the student has taken the courses" required>
-                <label for="endDate">End date</label>
-                <input type="date" name="endDate" id="endDate" title="The last day the student has taken the courses"
-                    required>
+                <label for="startDate">Start date
+                    <input type="date" name="startDate" id="startDate" title="Date of the first lesson taken" required>
+                </label>
+                <label for="endDate">End date
+                    <input type="date" name="endDate" id="endDate" title="Date of the last lesson taken" required>
+                </label>
+                <span class="no-js hint">Period must be between 1-2-2021 and 6-6-2021</span>
             </fieldset>
 
-            <fieldset class="course">
-                <legend>Rate the course on a scale from 1 to 10</legend>
-                <label for="lessonMarterial" class="rating">Lesson material (how hard was it?)</label>
+            <h2>Rate the course on a scale from 1 to 10</h2>
+            <fieldset>
+                <legend for="lessonMarterial" class="rating">Lesson material (how hard was it?)</legend>
                 <label for="lessonMarterial-1">1
-                    <input type="radio" name="lessonMarterialRating" id="lessonMarterial-1">
+                    <input type="radio" name="lessonMarterialRating" id="lessonMarterial-1" required>
                 </label>
                 <label for="lessonMarterial-2">2
                     <input type="radio" name="lessonMarterialRating" id="lessonMarterial-2">
@@ -73,15 +74,73 @@
                 <label for="lessonMarterial-10">10
                     <input type="radio" name="lessonMarterialRating" id="lessonMarterial-10">
                 </label>
+            </fieldset>
+            <fieldset>
+                <legend for="explanation">Explanation (how clearly is it explained?)</legend>
+                <label for="explanation-1">1
+                    <input type="radio" name="explanationRating" id="explanation-1" required>
+                </label>
+                <label for="explanation-2">2
+                    <input type="radio" name="explanationRating" id="explanation-2">
+                </label>
+                <label for="explanation-3">3
+                    <input type="radio" name="explanationRating" id="explanation-3">
+                </label>
+                <label for="explanation-4">4
+                    <input type="radio" name="explanationRating" id="explanation-4">
+                </label>
+                <label for="explanation-5">5
+                    <input type="radio" name="explanationRating" id="explanation-5">
+                </label>
+                <label for="explanation-6">6
+                    <input type="radio" name="explanationRating" id="explanation-6">
+                </label>
+                <label for="explanation-7">7
+                    <input type="radio" name="explanationRating" id="explanation-7">
+                </label>
+                <label for="explanation-8">8
+                    <input type="radio" name="explanationRating" id="explanation-8">
+                </label>
+                <label for="explanation-9">9
+                    <input type="radio" name="explanationRating" id="explanation-9">
+                </label>
+                <label for="explanation-10">10
+                    <input type="radio" name="explanationRating" id="explanation-10">
+                </label>
+            </fieldset>
+            <fieldset>
 
-
-                <label for="explanation">Explanation (how clearly is it explained?)</label>
-                <input type="number" id="explanation" name="explanation" placeholder="1-10" min="1" max="10"
-                    title="How clearly was the teacher material explained?" required>
-                <br>
-                <label for="ownInsight">Own insight (How well do you get it?)</label>
-                <input type="number" id="ownInsight" name="ownInsight" placeholder="1-10" min="1" max="10"
-                    title="How well did you get the teaching material?" required>
+                <legend for="ownInsight">Own insight (How well do you get it?)</legend>
+                <label for="ownInsight-1">1
+                    <input type="radio" name="ownInsightRating" id="ownInsight-1" required>
+                </label>
+                <label for="ownInsight-2">2
+                    <input type="radio" name="ownInsightRating" id="ownInsight-2">
+                </label>
+                <label for="ownInsight-3">3
+                    <input type="radio" name="ownInsightRating" id="ownInsight-3">
+                </label>
+                <label for="ownInsight-4">4
+                    <input type="radio" name="ownInsightRating" id="ownInsight-4">
+                </label>
+                <label for="ownInsight-5">5
+                    <input type="radio" name="ownInsightRating" id="ownInsight-5">
+                </label>
+                <label for="ownInsight-6">6
+                    <input type="radio" name="ownInsightRating" id="ownInsight-6">
+                </label>
+                <label for="ownInsight-7">7
+                    <input type="radio" name="ownInsightRating" id="ownInsight-7">
+                </label>
+                <label for="ownInsight-8">8
+                    <input type="radio" name="ownInsightRating" id="ownInsight-8">
+                </label>
+                <label for="ownInsight-9">9
+                    <input type="radio" name="ownInsightRating" id="ownInsight-9">
+                </label>
+                <label for="ownInsight-10">10
+                    <input type="radio" name="ownInsightRating" id="ownInsight-10">
+                </label>
 
             </fieldset>
 

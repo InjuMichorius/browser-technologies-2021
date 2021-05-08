@@ -82,9 +82,17 @@ app.use(bodyParser.urlencoded({
 
 //Routes
 app.get('/', (req, res) => {
-  res.render('WAFS', {
+  res.render('account', {
     uuid: uuidv4().toString()
   })
+});
+
+app.get('/overview', (req, res) => {
+  res.render('overview')
+});
+
+app.get('/wafs', (req, res) => {
+  res.render('WAFS')
 });
 
 app.get('/WAFS/:uuid', (req, res) => {

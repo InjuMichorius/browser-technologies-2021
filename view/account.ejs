@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
+    <title>HvA | Account</title>
     <%- include('./components/head') %>
-        <title>HvA | Account</title>
 </head>
 
 <body>
     <header>
-        <a href="hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+        <a href="https://www.hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
     </header>
     <main>
         <h1>HvA Survey</h1>
@@ -16,14 +16,14 @@
             and where can we improve? The survey consists of 6 subjects, each containing 3 questions.
         </p>
 
-        <form action="/send-account/<%- uuid %>" id="student">
+        <form action="/overview" id="student">
             <fieldset class="account-fieldset">
                 <legend class="account-legend">What is your name?</legend>
                 <label for="studentName" class="label-name">
                     <span class="input-name">Student name</span>
                     <input type="text" id="studentName" name="studentName" placeholder="John"
                         title="Studentname must be at least 2 characters long and can not contain numbers or symbols."
-                        pattern="[A-zÀ-ž\-]+" required>
+                        pattern="[A-zÀ-ž\- ]+" required>
                 </label>
                 <span class="no-js hint">Studentname must be at least 2 characters long and can not contain numbers or
                     symbols.</span>
