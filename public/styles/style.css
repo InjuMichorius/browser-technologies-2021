@@ -4,14 +4,8 @@
     box-sizing: border-box;
 }
 
-:root {
-    --main-font: 'arial';
-    --black: black;
-    --primary: #25167A;
-}
-
 html {
-    background-color: var(--primary);
+    background-color: #25167A;
     background: url('../img/background-image.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -21,7 +15,7 @@ html {
 }
 
 ::selection {
-    background-color: var(--primary);
+    background-color: #25167A;
     color: white;
 }
 
@@ -60,7 +54,7 @@ input[type="date"] {
 }
 
 input[type="submit"] {
-    background-color: var(--primary);
+    background-color: #25167A;
     color: white;
     border: none;
     padding: 10px 30px;
@@ -119,7 +113,7 @@ form:invalid input[type="submit"]#submit {
 
 form:valid input[type="submit"]#submit {
     cursor: pointer;
-    background-color: var(--primary);
+    background-color: #25167A;
 }
 
 ul {
@@ -132,7 +126,7 @@ li {
 }
 
 a, a:visited {
-    border: 2px solid var(--primary);
+    border: 2px solid #25167A;
     background-color: white;
     text-decoration: none;
     width: 100%;
@@ -144,6 +138,32 @@ a, a:visited {
 }
 
 a:hover, a:visited:hover {
-    background-color: var(--primary);
+    background-color: #25167A;
     color: white;
+}
+
+@supports (--css: variables) {
+    :root {
+        --main-font: 'arial';
+        --black: black;
+        --primary: #25167A;
+    }
+    html {
+        background-color: var(--primary);
+    }
+    ::selection {
+        background-color: var(--primary)
+    }
+    input[type="submit"] {
+        background-color: var(--primary);
+    }
+    form:valid input[type="submit"]#submit {
+        background-color: var(--primary);
+    }
+    a, a:visited {
+        border: 2px solid var(--primary);
+    }
+    a:hover, a:visited:hover {
+        background-color: var(--primary);
+    }
 }

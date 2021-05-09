@@ -1,46 +1,22 @@
-// const images = [
-//     '../img/background-image.jpg',
-//     '../img/background-image3.jpg',
-//     '../img/background-image4.jpg',
-//     '../img/background-image5.jpg'
-// ]
+const accountForm = document.getElementById('student')
+const studentName = document.getElementById('studentName')
+const hint = document.querySelector('hint')
 
-// const img = document.querySelector('html')
+hint.getElementsByClassName.display = "none"
 
-// function imgDisp() {
-//     const num = Math.floor(Math.random() * 6)
-//     img.style.backgroundImage = 'url("' + images[num] + '")'
-// }
+accountForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let messages = []
+    if (studentName.value === '' || studentName.value == null) {
+        messages.push('Please enter a student name')
+    }
 
-// imgDisp()
+    if (messages.length > 0) {
+        e.preventDefault()
+        hint.getElementsByClassName.color = "red"
+        hint.innerText = messages.join(', ')
+    }
+})
 
-const startDate = document.getElementById('startDate')
-const endDate = document.getElementById('endDate')
 
-const lessonMaterial = document.getElementById('lessonMaterial')
-const explanation = document.getElementById('explanation')
-const ownInsight = document.getElementById('ownInsight')
-
-console.log(startDate.value);
-
-startDate.onselect = function() {
-    localStorage.setItem("startDate", startDate.value)
-}
-
-endDate.onchange = function() {
-    console.log('hello world');
-}
-
-lessonMaterial.onchange = function() {
-    localStorage.setItem("lessonMaterial", lessonMaterial.value)
-}
-explanation.onchange = function() {
-    localStorage.setItem("explanation", explanation.value)
-}
-ownInsight.onchange = function() {
-    localStorage.setItem("ownInsight", ownInsight.value)
-}
-
-lessonMaterial.value = localStorage.getItem("lessonMaterial")
-explanation.value = localStorage.getItem("explanation")
-ownInsight.value = localStorage.getItem("ownInsight")
+console.log('hello world');
