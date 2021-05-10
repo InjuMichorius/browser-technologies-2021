@@ -2,39 +2,44 @@
 <html lang="en">
 
 <head>
+    <title>HvA | Account</title>
     <%- include('./components/head') %>
-        <title>HvA | Account</title>
 </head>
 
 <body>
     <header>
-        <a href="hva.nl"><img src="/static/img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+        <a href="https://www.hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
     </header>
     <main>
-        <h1>HvA Enquete</h1>
+        <h1>HvA Survey</h1>
         <p>In this survey we want to know how you experienced the courses. What went well
             and where can we improve? The survey consists of 6 subjects, each containing 3 questions.
         </p>
-        
-        <form action="/" method="POST" id="student">
+
+        <form action="/" method="POST" id="student" id="student">
             <fieldset class="account-fieldset">
                 <legend class="account-legend">What is your name?</legend>
-                <input type="text" id="studentName" name="studentName" placeholder="John"
-                    title="First name of the student, matches the student number" required>
                 <label for="studentName" class="label-name">
                     <span class="input-name">Student name</span>
+                    <input type="text" id="studentName" name="studentName" placeholder="John"
+                        title="Studentname must be at least 2 characters long and can not contain numbers or symbols."
+                        pattern="[A-zÀ-ž\- ]+" required>
                 </label>
+                <span class="no-js hint">Studentname must be at least 2 characters long and can not contain numbers or
+                    symbols.</span>
+
             </fieldset>
 
             <fieldset class="account-fieldset">
-                <legend class="account-legend">What is your student number?</legend>
-                <input type="text" id="studentNumber" name="studentNumber" placeholder="500804843"
-                    title="Student number must be a number between 500000000 and 600000000" required>
                 <label for="studentNumber" class="label-name">
+                    <legend class="account-legend">What is your student number?</legend>
                     <span class="input-name">Student number</span>
+                    <input type="text" id="studentNumber" name="studentNumber" placeholder="500804843"
+                        title="Student number must be 9 characters long." pattern="[0-9]{9}" required>
                 </label>
+                <span class="no-js hint">Studentnumber can only be numbers and must be 9 numbers long</span>
             </fieldset>
-            <input type="submit" form="student">
+            <input type="submit" form="student" value="Complete surveys" id="submit">
         </form>
     </main>
 </body>

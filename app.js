@@ -4,31 +4,8 @@ const { v4: uuidV4 } = require('uuid');
 //Config our .env file
 require('dotenv').config()
 
-
-// Database
-
-// Local Dev Thijs
-// const production = process.NODE_ENV === 'production'
-// const address = process.env.DB_ADDRESS
-// const uri = production ? `mongodb+srv://${address}` : `mongodb://${address}:${process.env.DB_PORT}`
-
-// const options = {
-// 	useNewUrlParser: true,
-// 	useUnifiedTopology: true,
-// 	useFindAndModify: false,
-// 	useCreateIndex: true,
-// 	auth: {
-// 		authSource: 'admin'
-// 	},
-// 	dbName: process.env.DB_NAME,
-// 	user: process.env.DB_USERNAME,
-// 	pass: process.env.DB_PASSWORD
-// }
-
-// mongoose.connect(uri, options);
-
 const url = 'mongodb+srv://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@cluster0.zlqtj.mongodb.net/enquetes?retryWrites=true&w=majority'
-mongoose.connect(url, {'useNewUrlParser': true, 'useUnifiedTopology': true});
+mongoose.connect(url, {'useNewUrlParser': true, 'useUnifiedTopology': true, useCreateIndex: true});
 
 //Schemas
 const Schema = mongoose.Schema
@@ -145,7 +122,6 @@ function saveSurvey(req, res, next) {
       const surveyIndex = userDocument.surveys.findIndex((survey) => survey.subject === subject )
 
       if(surveyIndex >= 0) {
-        console.log('hello')
         userDocument.surveys[surveyIndex] = {
           subject: subject,
           teacher: req.body.teacher,

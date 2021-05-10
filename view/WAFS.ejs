@@ -2,51 +2,149 @@
 <html lang="en">
 
 <head>
-    <%- include('components/head') %>
-        <title>HvA | WAFS</title>
+    <title>HvA | WAFS</title>
+    <%- include('./components/head') %>
 </head>
 
 <body>
+    <header>
+        <a href="https://www.hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+    </header>
     <main>
-        <form id="wafs" action="/survey/<%- user.uuid %>/WAFS" method="POST">
+        <h1>Web Apps from Scratch</h1>
+	<form id="wafs" action="/survey/<%- user.uuid %>/WAFS" method="POST">
             <fieldset class="checkbox-area">
                 <legend>From which teachers did you get <b>Web App from Scratch</b>?</legend>
 
-                <label for="joost">Joost Faber</label>
-                <input type="radio" id="joost" name="teacher" value="Joost Faber" required>
-                <label for="wouter">Wouter van der Heijde</label>
-                <input type="radio" id="wouter" name="teacher" value="Wouter">
-                <label for="suus">Suus</label>
-                <input type="radio" id="suus" name="teacher" value="Suus">
-                <label for="robin">Robin Fugte</label>
-                <input type="radio" id="robin" name="teacher" value="Robin Fugte">
-            </fieldset>
-            <fieldset class="course">
-                <legend>In what period did you follow this course?</legend>
-                <label for="startDate">Start date</label>
-                <input type="date" name="startDate" id="startDate"
-                    title="The first day the student has taken the courses" value="<%- formData.startDate %>" required>
-                <label for="endDate">End date</label>
-                <input type="date" name="endDate" id="endDate" title="The last day the student has taken the courses" value="<%- formData.endDate %>"
-                    required>
-            </fieldset>
-            <fieldset class="course">
-                <legend>Rate the course on a scale from 1 to 10</legend>
-                <label for="lessonMarterial" class="rating">Lesson material (how hard was it?)</label>
-                <input type="number" id="lessonMaterial" name="lessonMaterial" placeholder="1-10" min="1" max="10"
-                    title="How hard was the lesson material?" value="<%- formData.lessonMaterial %>" required>
-                <br>
-                <label for="explanation">Explanation (how clearly is it explained?)</label>
-                <input type="number" id="explanation" name="explanation" placeholder="1-10" min="1" max="10"
-                    title="How clearly was the teacher material explained?" value="<%- formData.explanation %>" required>
-                <br>
-                <label for="ownInsight">Own insight (How well do you get it?)</label>
-                <input type="number" id="ownInsight" name="ownInsight" placeholder="1-10" min="1" max="10"
-                    title="How well did you get the teaching material?" value="<%- formData.ownInsight %>" required>
-                
+                <label for="joost">Joost Faber
+                    <input type="radio" id="joost" name="teacher" value="Joost Faber" <% if(formData.teacher === "Joost Faber") { %>checked<% } %> required>
+                </label>
+                <label for="wouter">Wouter van der Heijde
+                    <input type="radio" id="wouter" name="teacher" value="Wouter" <% if(formData.teacher === "Wouter") { %>checked<% } %>>
+                </label>
+                <label for="suus">Suus
+                    <input type="radio" id="suus" name="teacher" value="Suus" <% if(formData.teacher === "Suus") { %>checked<% } %>>
+                </label>
+                <label for="robin">Robin Fugte
+                    <input type="radio" id="robin" name="teacher" value="Robin Fugte" <% if(formData.teacher === "Robin Fugte") { %>checked<% } %>>
+                </label>
             </fieldset>
 
-            <input type="submit">
+            <fieldset class="course">
+                <legend>In what period did you follow this course?</legend>
+                <label for="startDate">Start date
+                    <input type="date" name="startDate" id="startDate" title="Date of the first lesson taken" min="2021-2-1" max="2021-6-6" required>
+                </label>
+                <label for="endDate">End date
+                    <input type="date" name="endDate" id="endDate" title="Date of the last lesson taken" min="2021-2-1" max="2021-6-6" required>
+                </label>
+                <span class="no-js hint">Period must be between 1-2-2021 and 6-6-2021</span>
+            </fieldset>
+
+            <h2>Rate the course on a scale from 1 to 10</h2>
+            <fieldset>
+                <legend class="rating">Lesson material (how hard was it?)</legend>
+                <label for="lessonMarterial-1">1
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-1" value="1" required>
+                </label>
+                <label for="lessonMarterial-2">2
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-2" value="2">
+                </label>
+                <label for="lessonMarterial-3">3
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-3" value="3">
+                </label>
+                <label for="lessonMarterial-4">4
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-4" value="4">
+                </label>
+                <label for="lessonMarterial-5">5
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-5" value="5">
+                </label>
+                <label for="lessonMarterial-6">6
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-6" value="6">
+                </label>
+                <label for="lessonMarterial-7">7
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-7" value="7">
+                </label>
+                <label for="lessonMarterial-8">8
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-8" value="8">
+                </label>
+                <label for="lessonMarterial-9">9
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-9" value="9">
+                </label>
+                <label for="lessonMarterial-10">10
+                    <input type="radio" name="lessonMarterial" id="lessonMarterial-10" value="10">
+                </label>
+            </fieldset>
+            <fieldset>
+                <legend>Explanation (how clearly is it explained?)</legend>
+                <label for="explanation-1">1
+                    <input type="radio" name="explanation" id="explanation-1" value="1" required>
+                </label>
+                <label for="explanation-2">2
+                    <input type="radio" name="explanation" id="explanation-2" value="2">
+                </label>
+                <label for="explanation-3">3
+                    <input type="radio" name="explanation" id="explanation-3" value="3">
+                </label>
+                <label for="explanation-4">4
+                    <input type="radio" name="explanation" id="explanation-4" value="4">
+                </label>
+                <label for="explanation-5">5
+                    <input type="radio" name="explanation" id="explanation-5" value="5">
+                </label>
+                <label for="explanation-6">6
+                    <input type="radio" name="explanation" id="explanation-6" value="6">
+                </label>
+                <label for="explanation-7">7
+                    <input type="radio" name="explanation" id="explanation-7" value="7">
+                </label>
+                <label for="explanation-8">8
+                    <input type="radio" name="explanation" id="explanation-8" value="8">
+                </label>
+                <label for="explanation-9">9
+                    <input type="radio" name="explanation" id="explanation-9" value="9">
+                </label>
+                <label for="explanation-10">10
+                    <input type="radio" name="explanation" id="explanation-10" value="10">
+                </label>
+            </fieldset>
+            <fieldset>
+
+                <legend>Own insight (How well do you get it?)</legend>
+                <label for="ownInsight-1">1
+                    <input type="radio" name="ownInsight" id="ownInsight-1" value="1" required>
+                </label>
+                <label for="ownInsight-2">2
+                    <input type="radio" name="ownInsight" id="ownInsight-2" value="2">
+                </label>
+                <label for="ownInsight-3">3
+                    <input type="radio" name="ownInsight" id="ownInsight-3" value="3">
+                </label>
+                <label for="ownInsight-4">4
+                    <input type="radio" name="ownInsight" id="ownInsight-4" value="4">
+                </label>
+                <label for="ownInsight-5">5
+                    <input type="radio" name="ownInsight" id="ownInsight-5" value="5">
+                </label>
+                <label for="ownInsight-6">6
+                    <input type="radio" name="ownInsight" id="ownInsight-6" value="6">
+                </label>
+                <label for="ownInsight-7">7
+                    <input type="radio" name="ownInsight" id="ownInsight-7" value="7">
+                </label>
+                <label for="ownInsight-8">8
+                    <input type="radio" name="ownInsight" id="ownInsight-8" value="8">
+                </label>
+                <label for="ownInsight-9">9
+                    <input type="radio" name="ownInsight" id="ownInsight-9" value="9">
+                </label>
+                <label for="ownInsight-10">10
+                    <input type="radio" name="ownInsight" id="ownInsight-10" value="10">
+                </label>
+
+            </fieldset>
+
+            <input type="submit" form="wafs" id="submit">
         </form>
     </main>
 </body>

@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
+    <title>HvA | Overview</title>
     <%- include('./components/head') %>
-        <title>HvA | </title>
 </head>
 
 <body>
@@ -16,13 +16,17 @@
             survey consists of 6 subjects, each containing 3 questions.
         </p>
         <h2>Empty enquetes</h2>
+        <ul>
         <% emptySurveys.forEach(function(course) { %>
-            <a href="/survey/<%- user.uuid %>/<%- course %>"><%= course %></a>
+            <li><a href="/survey/<%- user.uuid %>/<%- course %>"><%= course %></a></li>
             <% }) %>
+        </ul>
         <h2>Filled in enquetes</h2>
+        <ul>
         <% filledSurveys.forEach(function(course) { %>
-            <a href="/survey/<%- user.uuid %>/<%- course %>"><%= course %></a>
+            <li><a href="/survey/<%- user.uuid %>/<%- course %>"><%= course %></a></li>
             <% }) %>
+        </ul>
     </main>
 </body>
 

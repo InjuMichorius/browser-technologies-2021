@@ -1,19 +1,25 @@
 const accountForm = document.getElementById('student')
 const studentName = document.getElementById('studentName')
-const hint = document.querySelector('hint')
+const studentNumber = document.getElementById('studentNumber')
+const hint = document.getElementById('hint')
 
-hint.getElementsByClassName.display = "none"
+if(Window.localStorage) {
+    //localStorage code
+}
 
-accountForm.addEventListener('submit', (e) => {
-    e.preventDefault()
+console.log(hint)
+
+studentNumber.addEventListener('blur', (e) => {
     let messages = []
-    if (studentName.value === '' || studentName.value == null) {
-        messages.push('Please enter a student name')
+    e.preventDefault()
+    if (!/[0-9]{9}/.test(studentNumber.value)) {
+        let numberLength = studentNumber.value.length
+        messages.push(`Studentnumber must be 9 numbers long (${numberLength}/9)`)
+    } else {
+        hint.innerText = ''
     }
 
     if (messages.length > 0) {
-        e.preventDefault()
-        hint.getElementsByClassName.color = "red"
         hint.innerText = messages.join(', ')
     }
 })
