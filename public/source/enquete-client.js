@@ -7,16 +7,10 @@ const endDate = document.getElementById('endDate')
 
 function selected() {
     const getSelectedValue = document.querySelector( 'input[name="teacher"]:checked')
-    if (getSelectedValue.value === "joost") {
-        localStorage.setItem("teacher", getSelectedValue.value)
-    } else if (getSelectedValue.value === "wouter") {
-        localStorage.setItem("teacher", getSelectedValue.value)
-    } else if (getSelectedValue.value === "suus") {
-        localStorage.setItem("teacher", getSelectedValue.value)
-    } else if (getSelectedValue.value === "robin") {
-        localStorage.setItem("teacher", getSelectedValue.value)
-    }
+    localStorage.setItem("teacher", getSelectedValue.value)
 }
+
+localStorage.getItem("teacher").checked = true
 
 if(localStorage.getItem("teacher") === "joost"){
     joost.checked = true
