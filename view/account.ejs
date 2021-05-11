@@ -4,6 +4,7 @@
 <head>
     <title>HvA | Account</title>
     <%- include('./components/head') %>
+    <script src="/static/source/account-client.js" defer></script>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
                         title="Studentname must be at least 2 characters long and can not contain numbers or symbols."
                         pattern="[A-zÀ-ž\- ]+" required>
                 </label>
-                <span class="no-js hint">Studentname must be at least 2 characters long and can not contain numbers or
+                <span class="studentName-hint">Studentname must be at least 2 characters long and can not contain numbers or
                     symbols.</span>
 
             </fieldset>
@@ -37,7 +38,7 @@
                     <input type="text" id="studentNumber" name="studentNumber" placeholder="500804843"
                         title="Student number must be 9 characters long." pattern="[0-9]{9}" required>
                 </label>
-                <span class="no-js hint">Studentnumber can only be numbers and must be 9 numbers long</span>
+                <span class="studentNumber-hint">Studentnumber can only be numbers and must be 9 numbers long</span>
             </fieldset>
             <input type="submit" form="student" value="Complete surveys" id="submit">
         </form>
