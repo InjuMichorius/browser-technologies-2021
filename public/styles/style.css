@@ -167,3 +167,20 @@ a:hover, a:visited:hover {
         background-color: var(--primary);
     }
 }
+
+@supports not (background-color: rgba(37, 22, 122, 1)) {
+ body {
+     background-color: #25167A;
+ }
+}
+
+@supports (--css: @keyframes) {
+    @keyframes slideUp{
+        0% {
+            transform: translateY(-100%);
+        }
+        100% {
+            transform: translateY(0%);
+        }
+    }
+}

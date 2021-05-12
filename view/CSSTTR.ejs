@@ -2,49 +2,181 @@
 <html lang="en">
 
 <head>
+    <title>HvA | CSSTTR</title>
     <%- include('./components/head') %>
-        <title>HvA | CSSTTR</title>
+        <script src="/static/source/enquete-client.js" defer></script>
+        <script src="/static/source/CSSTTR-client.js" defer></script>
 </head>
 
 <body>
-    <main>
-        <form id="cssttr" action="/send-CSSTTR/<%- uuid %>">
-            <fieldset class="checkbox-area">
-                <legend>From which teachers did you get <b>CSS to the Rescue</b>?</legend>
+    <header>
+        <a href="https://www.hva.nl"><img src="img/hva-logo.png" alt="" width="15%" class="hva-logo"></a>
+    </header>
+        <main>
+            <h1>CSS to the Rescue</h1>
+            <form id="cssttr" action="" method="POST">
+                <fieldset class="checkbox-area">
+                    <legend>From which teachers did you get <b>CSS to the Rescue</b>?</legend>
 
-                <label for="sanne">Sanne 't Hooft</label>
-                <input type="radio" id="sanne" name="teacher" value="Sanne 't Hooft" required>
-                <label for="vasilis">Vasilis van Gemert</label>
-                <input type="radio" id="vasilis" name="teacher" value="Vasilis van Gemert">
-            </fieldset>
-            <fieldset class="course">
-                <legend>In what period did you follow this course?</legend>
-                <label for="startDate">Start date</label>
-                <input type="date" name="startDate" id="startDate"
-                    title="The first day the student has taken the courses" value="<%- startDate %>" required>
-                <label for="endDate">End date</label>
-                <input type="date" name="endDate" id="endDate" title="The last day the student has taken the courses" value="<%- endDate %>"
-                    required>
-            </fieldset>
-            <fieldset class="course">
-                <legend>Rate the course on a scale from 1 to 10</legend>
-                <label for="lessonMarterial" class="rating">Lesson material (how hard was it?)</label>
-                <input type="number" id="lessonMaterial" name="lessonMaterial" placeholder="1-10" min="1" max="10"
-                    title="How hard was the lesson material?" value="<%- lessonMaterial %>" required>
-                <br>
-                <label for="explanation">Explanation (how clearly is it explained?)</label>
-                <input type="number" id="explanation" name="explanation" placeholder="1-10" min="1" max="10"
-                    title="How clearly was the teacher material explained?" value="<%- explanation %>" required>
-                <br>
-                <label for="ownInsight">Own insight (How well do you get it?)</label>
-                <input type="number" id="ownInsight" name="ownInsight" placeholder="1-10" min="1" max="10"
-                    title="How well did you get the teaching material?" value="<%- ownInsight %>" required>
-                
-            </fieldset>
+                    <label for="sanne">Sanne 't Hooft
+                        <input type="radio" id="sanne" name="teacher" class="teacher" value="sanne"
+                            onclick="selectedTeacher()" <% if(formData.teacher==="sanne" ) { %>checked<% } %> required>
+                    </label>
+                    <label for="vasilis">Vasilis van Gemert
+                        <input type="radio" id="vasilis" name="teacher" class="teacher" value="vasilis"
+                            onclick="selectedTeacher()" <% if(formData.teacher==="vasilis" ) { %>checked<% } %>>
+                    </label>
+                </fieldset>
 
-            <input type="submit" form="cssttr">
-        </form>
-    </main>
+                <fieldset class="course">
+                    <legend>In what period did you follow this course?</legend>
+                    <label for="startDate">Start date
+                        <input type="date" name="startDate" id="startDate" title="Date of the first lesson taken"
+                            min="2021-02-01" max="2021-06-06" value="<%- formData.startDate %>" required>
+                    </label>
+                    <label for="endDate">End date
+                        <input type="date" name="endDate" id="endDate" title="Date of the last lesson taken"
+                            min="2021-02-01" max="2021-06-06" value="<%- formData.endDate %>" required>
+                    </label>
+                    <span class="no-js hint">Period must be between 1-2-2021 and 6-6-2021</span>
+                </fieldset>
+
+                <h2>Rate the course on a scale from 1 to 10</h2>
+                <fieldset>
+                    <legend class="rating">Lesson material (how hard was it?)</legend>
+                    <label for="lessonMarterial-1">1
+                        <input type="radio" name="lessonMaterial" id="lessonMaterial-1" value="1" onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="1" ) { %>checked<% } %> required>
+                    </label>
+                    <label for="lessonMarterial-2">2
+                        <input type="radio" name="lessonMaterial" id="lessonMaterial-2" value="2" onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="2" ) { %>checked<% } %>>
+                    </label>
+                    <label for="lessonMarterial-3">3
+                        <input type="radio" name="lessonMaterial" id="lessonMaterial-3" value="3" onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="3" ) { %>checked<% } %>>
+                    </label>
+                    <label for="lessonMarterial-4">4
+                        <input type="radio" name="lessonMaterial" id="lessonMaterial-4" value="4" onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="4" ) { %>checked<% } %>>
+                    </label>
+                    <label for="lessonMarterial-5">5
+                        <input type="radio" name="lessonMaterial" id="lessonMaterial-5" value="5" onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="5" ) { %>checked<% } %>>
+                    </label>
+                    <label for="lessonMarterial-6">6
+                        <input type="radio" name="lessonMaterial" id="lessonMaterial-6" value="6" onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="6" ) { %>checked<% } %>>
+                    </label>
+                    <label for="lessonMarterial-7">7
+                        <input type="radio" name="lessonMaterial" id="lessonMaterial-7" value="7" onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="7" ) { %>checked<% } %>>
+                    </label>
+                    <label for="lessonMarterial-8">8
+                        <input type="radio" name="lessonMaterial" id="lessonMaterial-8" value="8"onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="8" ) { %>checked<% } %>>
+                    </label>
+                    <label for="lessonMarterial-9">9
+                        <input type="radio" name="lessonMaterial" id="lessonMaterial-9" value="9" onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="9" ) { %>checked<% } %>>
+                    </label>
+                    <label for="lessonMarterial-10">10
+                        <input type="radio" name="lessonMaterial" id="lessonMarteial-10" value="10" onclick="selectedLessonMaterial()" <%
+                            if(formData.lessonMaterial==="10" ) { %>checked<% } %>>
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <legend>Explanation (how clearly is it explained?)</legend>
+                    <label for="explanation-1">1
+                        <input type="radio" name="explanation" id="explanation-1" value="1" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="1" ) { %>checked<% } %> required>
+                    </label>
+                    <label for="explanation-2">2
+                        <input type="radio" name="explanation" id="explanation-2" value="2" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="2" ) { %>checked<% } %>>
+                    </label>
+                    <label for="explanation-3">3
+                        <input type="radio" name="explanation" id="explanation-3" value="3" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="3" ) { %>checked<% } %>>
+                    </label>
+                    <label for="explanation-4">4
+                        <input type="radio" name="explanation" id="explanation-4" value="4" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="4" ) { %>checked<% } %>>
+                    </label>
+                    <label for="explanation-5">5
+                        <input type="radio" name="explanation" id="explanation-5" value="5" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="5" ) { %>checked<% } %>>
+                    </label>
+                    <label for="explanation-6">6
+                        <input type="radio" name="explanation" id="explanation-6" value="6" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="6" ) { %>checked<% } %>>
+                    </label>
+                    <label for="explanation-7">7
+                        <input type="radio" name="explanation" id="explanation-7" value="7" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="7" ) { %>checked<% } %>>
+                    </label>
+                    <label for="explanation-8">8
+                        <input type="radio" name="explanation" id="explanation-8" value="8" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="8" ) { %>checked<% } %>>
+                    </label>
+                    <label for="explanation-9">9
+                        <input type="radio" name="explanation" id="explanation-9" value="9" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="9" ) { %>checked<% } %>>
+                    </label>
+                    <label for="explanation-10">10
+                        <input type="radio" name="explanation" id="explanation-10" value="10" onclick="selectedExplanation()" <%
+                            if(formData.explanation==="10" ) { %>checked<% } %>>
+                    </label>
+                </fieldset>
+                <fieldset>
+
+                    <legend>Own insight (How well do you get it?)</legend>
+                    <label for="ownInsight-1">1
+                        <input type="radio" name="ownInsight" id="ownInsight-1" value="1" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="1" ) { %>checked<% } %> required>
+                    </label>
+                    <label for="ownInsight-2">2
+                        <input type="radio" name="ownInsight" id="ownInsight-2" value="2" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="2" ) { %>checked<% } %>>
+                    </label>
+                    <label for="ownInsight-3">3
+                        <input type="radio" name="ownInsight" id="ownInsight-3" value="3" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="3" ) { %>checked<% } %>>
+                    </label>
+                    <label for="ownInsight-4">4
+                        <input type="radio" name="ownInsight" id="ownInsight-4" value="4" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="4" ) { %>checked<% } %>>
+                    </label>
+                    <label for="ownInsight-5">5
+                        <input type="radio" name="ownInsight" id="ownInsight-5" value="5" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="5" ) { %>checked<% } %>>
+                    </label>
+                    <label for="ownInsight-6">6
+                        <input type="radio" name="ownInsight" id="ownInsight-6" value="6" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="6" ) { %>checked<% } %>>
+                    </label>
+                    <label for="ownInsight-7">7
+                        <input type="radio" name="ownInsight" id="ownInsight-7" value="7" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="7" ) { %>checked<% } %>>
+                    </label>
+                    <label for="ownInsight-8">8
+                        <input type="radio" name="ownInsight" id="ownInsight-8" value="8" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="8" ) { %>checked<% } %>>
+                    </label>
+                    <label for="ownInsight-9">9
+                        <input type="radio" name="ownInsight" id="ownInsight-9" value="9" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="9" ) { %>checked<% } %>>
+                    </label>
+                    <label for="ownInsight-10">10
+                        <input type="radio" name="ownInsight" id="ownInsight-10" value="10" onclick="selectedOwnInsight()" <%
+                            if(formData.ownInsight==="10" ) { %>checked<% } %>>
+                    </label>
+
+                </fieldset>
+
+                <input type="submit" form="cssttr" id="submit" value="Save survey">
+            </form>
+        </main>
 </body>
 
 </html>

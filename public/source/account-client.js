@@ -10,8 +10,6 @@ studentName.onchange = function() {
     localStorage.setItem("studentName", studentName.value)
 }
 
-console.log(startDate)
-
 studentName.value = localStorage.getItem('studentName')
 
 studentName.addEventListener('blur', (e) => {
