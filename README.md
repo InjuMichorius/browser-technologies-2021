@@ -1,9 +1,7 @@
 # HvA Enquete 📝
 ![](https://github.com/InjuMichorius/browser-technologies-2021/blob/master/public/img/documentation/cover.JPG)
 
-HvA enquete is a school project I made where HvA students can rate the courses. The project is focused on progressive enhancement, a principle that makes sure the website is accesible for everyone.
-
-ReadEar is a school project I made, allowing blind people to "read" again. The project is focused on one user (exclusive design) called Roger Ravelli. He used to work as a renewable energy specialist, but he's slowly becoming blind and will need to use a screenreader. He likes to read and he's currently a member of a book group.
+HvA enquete is a school project I made where HvA students can rate the courses. The project is focused on progressive enhancement, a principle that makes sure the website is accesible for everyone
 
 [Click here for the live demo](https://injumichorius.github.io/hva-enquete)
 
@@ -18,7 +16,6 @@ ReadEar is a school project I made, allowing blind people to "read" again. The p
 > I want to be able to fill in a survey about the minor Web Development, with various answer options. If I don't finish the survey, I want to pick up where I left off later. (translate)
 
 The goal of HvA enquete is to provide the HvA with data about their students. The information will be send to a correctly structured database, where the HvA admin can look at the results.
-The goal of ReadEar is to provide it's users with an accessible interface, so they can easily listen to mp3 files. By creating this project im hoping to learn how to make the web a more accessible place!
 
 # Getting started ✨
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -30,7 +27,7 @@ To run this project you'll need [Git](https://git-scm.com/downloads), [Nodejs](h
 ### 1. Clone this repository 👯
 Before we can get started, we'll need to clone this repository. We can do this by typing the following line of code in the terminal:
 ```bash
-git clone https://github.com/InjuMichorius/ReadEar.git
+git clone https://github.com/InjuMichorius/hva-enquete.git
 ```
 ### 2. Install the packages 💻
 First we need to install the used NPM packages.
